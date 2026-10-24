@@ -1,0 +1,54 @@
+# Builds a static snapshot of the München dashboard and deploys it to GitHub Pages.
+# Runs on every push to main, every 6 hours (fresh data) and on demand.
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # bike counts are ingested into sqlite; keep it between runs so only new monthly files are fetched
+      - uses: actions/cache@v4
+        with:
+          path: tools/munich-public-api/data
+          key: munich-api-data-${{ github.run_id }}
+          restore-keys: munich-api-data-
+      - name: Test
+        working-directory: tools/munich-public-api
+        run: npm test
+      - name: Build static snapshot
+        run: node tools/munich-public-api/build-static.mjs dist-pages
+        env:
+          USER_AGENT: 'datenraum-muenchen (+https://github.com/tifa365/datenraum-muenchen)'
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

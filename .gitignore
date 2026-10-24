@@ -18,3 +18,6 @@ tools/munich-public-api/data/
 .idea/
 .vscode/
 *.log
+
+# static Pages build output
+dist-pages/

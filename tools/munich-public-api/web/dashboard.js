@@ -1,8 +1,17 @@
 // Munich Smart City Dashboard widgets (no framework). Behaviour mirrors the
 // Augsburg dashboard: same API contract (see docs/reverse-engineering), refresh
 // cadence, sorting/filtering and empty states. Data comes from munich-public-api.
-const API = (window.__ENV__?.API_BASE_URL ?? '/public').replace(/\/$/, '')
-const IMG = '/config/munich/assets/images'
+import { snapshotFile } from './snapshot-key.mjs'
+
+// Live mode: API_BASE_URL '/public' (Node server). Static mode (GitHub Pages): STATIC true,
+// API_BASE_URL points to the folder of JSON snapshots written by build-static.mjs.
+const ENV = window.__ENV__ ?? {}
+const API = (ENV.API_BASE_URL ?? '/public').replace(/\/$/, '')
+const STATIC = ENV.STATIC === true
+// Asset paths from the API are site-absolute ('/config/...'); make them relative so the
+// page also works under a sub-path such as https://<user>.github.io/<repo>/.
+const asset = p => (p ? String(p).replace(/^\//, '') : p)
+const IMG = 'config/munich/assets/images'
 
 const nf = new Intl.NumberFormat('de-DE')
 const nf1 = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
@@ -18,8 +27,13 @@ const toDate = s => { if (!s) return null; if (/^\d{4}-\d{2}-\d{2}$/.test(s)) { 
 const fmtDate = s => (toDate(s) ? dFull.format(toDate(s)) : null)
 const fmtShort = s => (toDate(s) ? dShort.format(toDate(s)) : null)
 const range = (a, b) => { const x = fmtShort(a), y = fmtShort(b); return !x && !y ? null : !x ? y : !y || x === y ? x : `${x} bis ${y}` }
-async function getJson(path, init) {
-  const r = await fetch(API + path, { headers: { accept: 'application/json' }, cache: 'no-store', ...init })
+function apiUrl(path, params = {}) {
+  if (STATIC) return `${API}/${snapshotFile(path, params)}`
+  const qs = new URLSearchParams(params).toString()
+  return `${API}${path}${qs ? `?${qs}` : ''}`
+}
+async function getJson(path, params = {}, init = {}) {
+  const r = await fetch(apiUrl(path, params), { headers: { accept: 'application/json' }, cache: 'no-store', ...init })
   if (!r.ok) throw new Error(`HTTP ${r.status}`)
   return r.json()
 }
@@ -43,7 +57,7 @@ customElements.define('city-info-widget', class extends Widget {
   }
   render() {
     const s = this.state, sk = '<span class="skeleton"></span>'
-    const bg = s.image ? `background-image:url('${esc(s.image.localPath)}')` : `background-image:url('${IMG}/muenchen-header-marienplatz.jpg')`
+    const bg = s.image ? `background-image:url('${esc(asset(s.image.localPath))}')` : `background-image:url('${IMG}/muenchen-header-marienplatz.jpg')`
     this.innerHTML = `
       <article class="card city" style="${bg}" aria-busy="${s.loading}">
         ${s.image ? `<span class="credit">Foto: ${esc(s.image.author)}, ${esc(s.image.licence?.id)}</span>` : ''}
@@ -110,7 +124,7 @@ customElements.define('transport-widget', class extends Widget {
     this.abort?.abort(); this.abort = new AbortController()
     if (!silent) this.set({ loading: true, error: '' })
     try {
-      const r = await getJson(`/transport/departures?stationRef=${encodeURIComponent(this.state.ref)}`, { signal: this.abort.signal })
+      const r = await getJson('/transport/departures', { stationRef: this.state.ref }, { signal: this.abort.signal })
       if (id !== this.reqId) return
       const raw = (r.results ?? []).map((d, i) => ({
         i, line: String(d.line ?? '').trim(), destination: String(d.destination ?? '').trim(), type: vehicleType(d.type, d.rawType, d.line),
@@ -245,7 +259,7 @@ customElements.define('transport-widget', class extends Widget {
             ${this.renderFilters()}
           </div>
         </div>
-        <div class="side" style="background-image:url('${esc(s.image?.localPath ?? `${IMG}/muenchen-transport-marienplatz-sbahn.jpg`)}')" aria-hidden="true">${credit(s.image)}</div>
+        <div class="side" style="background-image:url('${esc(asset(s.image?.localPath) ?? `${IMG}/muenchen-transport-marienplatz-sbahn.jpg`)}')" aria-hidden="true">${credit(s.image)}</div>
       </article>`
     this.renderOptions()
     if (focused) { const i = this.querySelector('.search input'); i.focus(); i.setSelectionRange(i.value.length, i.value.length) }
@@ -280,7 +294,7 @@ customElements.define('parking-widget', class extends Widget {
       ? `${nf.format(Math.max(0, total - free))} / ${nf.format(total)} belegt${s.updatedAt ? ` &middot; Stand ${tClock.format(new Date(s.updatedAt))} Uhr` : ''}` : 'Keine aktuellen Parkdaten verfügbar.'
     this.innerHTML = `
       <article class="card parking">
-        <div class="card-media" style="background-image:url('${esc(s.image?.localPath ?? `${IMG}/muenchen-parking-salvatorgarage.jpg`)}')">${credit(s.image)}</div>
+        <div class="card-media" style="background-image:url('${esc(asset(s.image?.localPath) ?? `${IMG}/muenchen-parking-salvatorgarage.jpg`)}')">${credit(s.image)}</div>
         <div class="card-body">
           <div class="p-head">
             <h3>Parkh&auml;user <span class="soft">&ndash; Aktuelle Auslastung</span></h3>
@@ -330,7 +344,7 @@ class CounterWidget extends Widget {
     const id = (this.reqId = (this.reqId ?? 0) + 1)
     this.set({ loading: true, error: null })
     try {
-      const r = await getJson(`${this.cfg.trafficPath}?period=${this.state.period}&${this.cfg.siteParam}=${encodeURIComponent(this.state.site)}`)
+      const r = await getJson(this.cfg.trafficPath, { period: this.state.period, [this.cfg.siteParam]: this.state.site })
       if (id !== this.reqId) return
       this.set({ loading: false, available: r.available !== false, data: {
         bucket: r.bucket === 'hour' ? 'hour' : 'day', updatedUntil: r.dataThrough ?? r.updatedUntil ?? null,

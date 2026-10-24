@@ -36,6 +36,14 @@ API calls, refresh cadence, sorting, empty states); no Augsburg code is bundled.
   "folgt" state served by placeholder endpoints (`available: false`).
 - Images are served from `/config/munich/assets/`; CC BY-SA credits are rendered on the image.
 
+## Static build (GitHub Pages)
+
+`node build-static.mjs [outDir]` starts the server once, saves every API answer the page can
+request as JSON (`api/…`, file names from `web/snapshot-key.mjs`), copies the page and images and
+switches `dashboard.html` to static mode. `.github/workflows/pages.yml` runs it on every push to
+`main` and every 6 hours and deploys to https://tifa365.github.io/datenraum-muenchen/.
+The public build never includes parking-occupancy test data or the Passantendaten archive.
+
 ## Run
 
 Node 22.5+, no dependencies (uses the built-in `node:sqlite`).
