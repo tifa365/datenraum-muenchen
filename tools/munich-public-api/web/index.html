@@ -9,7 +9,10 @@
     :root { --brand: #005a9f; --brand-dark: #00467c; --ink: #0b1f33; --line: #e3e6ea; --hover: #eef1f3; }
     * { box-sizing: border-box; }
     html, body { margin: 0; height: 100%; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #fff; }
-    .app { display: grid; grid-template-rows: 72px 1fr; grid-template-columns: 72px 1fr; height: 100vh; }
+    .app { display: grid; grid-template-rows: auto 72px 1fr; grid-template-columns: 72px 1fr; height: 100vh; }
+    /* Prototype notice in München yellow, first row of the shell */
+    .proto { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px 10px; padding: 7px 16px; background: #ffdd00; color: #111; font-size: 13px; line-height: 1.35; text-align: center; border-bottom: 1px solid #e0c200; }
+    .proto b { text-transform: uppercase; letter-spacing: .6px; padding: 1px 7px; border: 1.5px solid #111; font-size: 11px; }
     header { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px; padding: 0 16px 0 40px; border-bottom: 1px solid var(--line); background: #fff; }
     .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
     .mark { display: grid; line-height: 1.05; font-size: 10px; font-weight: 700; letter-spacing: .2px; }
@@ -23,25 +26,30 @@
     .lang:hover { background: var(--hover); }
     .login { display: inline-flex; align-items: center; gap: 10px; background: var(--brand); color: #fff; border: 0; border-radius: 6px; height: 40px; padding: 0 18px; font-size: 17px; cursor: pointer; }
     .login:hover { background: var(--brand-dark); }
-    nav { grid-row: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 10px 0 24px; border-right: 1px solid var(--line); }
+    nav { grid-row: 3; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 10px 0 24px; border-right: 1px solid var(--line); }
     nav a { width: 51px; height: 51px; display: grid; place-items: center; border-radius: 6px; color: #33415c; }
     nav a:hover { background: var(--hover); }
     nav a.active { background: #e5e8eb; color: var(--brand); }
     nav .bottom { margin-top: auto; }
-    main { grid-row: 2; min-width: 0; min-height: 0; }
+    main { grid-row: 3; min-width: 0; min-height: 0; }
     main iframe { display: block; width: 100%; height: 100%; border: 0; }
-    .toast { position: fixed; right: 16px; top: 84px; z-index: 10; max-width: 320px; padding: 12px 14px; background: #111317; color: #fff; font-size: 13px; line-height: 1.4; display: none; }
+    .toast { position: fixed; right: 16px; top: 120px; z-index: 10; max-width: 320px; padding: 12px 14px; background: #111317; color: #fff; font-size: 13px; line-height: 1.4; display: none; }
     .toast.show { display: block; }
     @media (max-width: 720px) {
-      .app { grid-template-columns: 1fr; grid-template-rows: 64px 1fr 60px; }
+      .app { grid-template-columns: 1fr; grid-template-rows: auto 64px 1fr 60px; }
+      .proto { font-size: 12px; padding: 6px 10px; }
       header { padding: 0 12px; gap: 10px; } .title { font-size: 18px; } .lang span, .mark { display: none; } .login { padding: 0 12px; font-size: 15px; }
-      nav { grid-row: 3; flex-direction: row; justify-content: center; border-right: 0; border-top: 1px solid var(--line); padding: 4px; }
-      nav .bottom { margin-top: 0; margin-left: auto; } main { grid-row: 2; }
+      nav { grid-row: 4; flex-direction: row; justify-content: center; border-right: 0; border-top: 1px solid var(--line); padding: 4px; }
+      nav .bottom { margin-top: 0; margin-left: auto; } main { grid-row: 3; }
     }
   </style>
 </head>
 <body>
   <div class="app">
+    <div class="proto" role="note">
+      <b>Prototyp</b>
+      <span>Inoffizielle Vorschau, keine Seite der Landeshauptstadt München. Daten teils eingefroren oder in Vorbereitung.</span>
+    </div>
     <header>
       <a class="brand" href="./" aria-label="Datenraum München, Startseite">
         <span class="mark" aria-hidden="true"><span>Landeshauptstadt</span><span>München</span></span>
