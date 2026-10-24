@@ -15,10 +15,7 @@
     .proto b { text-transform: uppercase; letter-spacing: .6px; padding: 1px 7px; border: 1.5px solid #111; font-size: 11px; }
     header { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px; padding: 0 16px 0 40px; border-bottom: 1px solid var(--line); background: #fff; }
     .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
-    .mark { display: grid; line-height: 1.05; font-size: 10px; font-weight: 700; letter-spacing: .2px; }
-    .mark span:first-child { font-weight: 400; }
     .title { font-size: 24px; color: #0a2540; white-space: nowrap; }
-    .title::before { content: "|"; margin-right: 8px; }
     .actions { margin-left: auto; display: flex; align-items: center; gap: 14px; }
     .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; color: #333; }
     .icon-btn:hover { background: var(--hover); }
@@ -38,7 +35,7 @@
     @media (max-width: 720px) {
       .app { grid-template-columns: 1fr; grid-template-rows: auto 64px 1fr 60px; }
       .proto { font-size: 12px; padding: 6px 10px; }
-      header { padding: 0 12px; gap: 10px; } .title { font-size: 18px; } .lang span, .mark { display: none; } .login { padding: 0 12px; font-size: 15px; }
+      header { padding: 0 12px; gap: 10px; } .title { font-size: 18px; } .lang span { display: none; } .login { padding: 0 12px; font-size: 15px; }
       nav { grid-row: 4; flex-direction: row; justify-content: center; border-right: 0; border-top: 1px solid var(--line); padding: 4px; }
       nav .bottom { margin-top: 0; margin-left: auto; } main { grid-row: 3; }
     }
@@ -52,7 +49,6 @@
     </div>
     <header>
       <a class="brand" href="./" aria-label="Datenraum München, Startseite">
-        <span class="mark" aria-hidden="true"><span>Landeshauptstadt</span><span>München</span></span>
         <span class="title">Datenraum München</span>
       </a>
       <div class="actions">
