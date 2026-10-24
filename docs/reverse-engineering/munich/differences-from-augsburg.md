@@ -39,8 +39,18 @@ Munich implementation in [`tools/munich-public-api`](../../../tools/munich-publi
 | `updatedAt` per station | realtime record time | retrieval time of the stop list |
 | new | — | `skipped` (6 stops without coordinates), `provenance`, `image` (tile image: crop on the S/U-Bahn sign at Marienplatz, 600×400 + @2x, CC0) |
 
-### `/public/transport/departures`: **placeholder**
-Returns the Augsburg envelope with `results: []` and `available: false`. Realtime source not decided (gtfs.de open but no S-Bahn; MVG needs permission; BEG/DEFAS needs an agreement).
+### `/public/transport/departures`: same shape, **timetable instead of realtime**
+- Source: the official MVV timetable (GTFS, CC BY, feed of 2026-10-05, valid until 2026-12-13),
+  ingested into sqlite once per feed version (Last-Modified), reduced to the ~1.37 million
+  departures at stations inside the City of Munich.
+- Scheduled times only: `estimatedTime` = `timetabledTime`, `delayMinutes` null, new top-level
+  `realtime: false`; the tile footer says "Fahrplan MVV · Soll-Zeiten, keine Echtzeit".
+- `type` is normalised (`sbahn`, `ubahn`, `tram`, `bus`, `regional-train`); MVV files S-Bahn
+  lines under GTFS route_type 0, so rail lines are recognised by name. Trips that terminate at
+  the station are not shown. Optional `horizon` (hours, max 12) and `limit` parameters.
+- Static build: one file per Munich station with the next 8 h, rebuilt every 6 h; the page hides
+  departures that have already left and counts minutes from the departure time.
+- Augsburg's live delays need a realtime source (BEG/DEFAS, MVV TRIAS or MVG), still open.
 
 ### `/public/parking`: extended, occupancy optional
 | Field | Augsburg | Munich |
@@ -129,6 +139,7 @@ file was modified.
 | `feat(munich-api):` ×7 | backbone, city-info, opendata, parking, parking occupancy, bike, stations |
 | `docs(munich-api):` | Munich OpenAPI contract, tool README |
 | `docs:` | this document |
+| `feat(munich-api):` | departures from the MVV timetable (GTFS), per-station static snapshots |
 | `feat(munich-api):` | pedestrian endpoints from the local Passantendaten archive |
 | `feat(munich-web):` | replica of the Augsburg home page: CIVORA-style shell at `/`, dashboard at `/dashboard.html`, own implementation based on an analysis of the Augsburg dashboard's code and layout |
 | `feat(munich-api):` | (superseded) prototype dashboard page at `/` (`tools/munich-public-api/web/index.html`); Augsburg's dashboard is a separate app whose source we do not have, so this is a new implementation |

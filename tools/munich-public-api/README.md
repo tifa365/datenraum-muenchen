@@ -16,9 +16,10 @@ and [`sources.md`](../../docs/reverse-engineering/munich/sources.md).
 | `GET /public/bike/sites` | city WFS | daily | 6 counters, `active` from ingested data |
 | `GET /public/bike/traffic?period=7d\|30d&siteId=` | city monthly 15-min CSVs → sqlite | 6 h | anchored to `dataThrough` (publication lags weeks) |
 | `GET /public/person/sites`, `GET /public/person/traffic?period=7d\|30d&siteName=` | local Passantendaten archive (SQLite, read-only, `PERSON_DATA_DIR`) | frozen | 10 inner-city locations, data through 23.10.2026; without `PERSON_DATA_DIR` the tile shows a placeholder |
+| `GET /public/transport/departures?stationRef=` | MVV timetable (GTFS, CC BY) → sqlite | daily check, re-ingest on new feed | scheduled times, `realtime: false`; needs the `unzip` command |
 | `GET /public/transport/stations` | MVV stop CSV, `de:09162:*` | weekly | static; `maxDelay`/`types` null |
 
-Placeholder (`available: false`, empty data): `/public/transport/departures` (realtime source pending).
+Realtime departures (delays) still need a licensed realtime source; the tile shows the timetable meanwhile.
 
 ## Dashboard page
 

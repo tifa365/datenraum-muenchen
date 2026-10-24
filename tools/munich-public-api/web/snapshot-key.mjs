@@ -9,8 +9,8 @@ export function slug(v) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'x'
 }
 
-// Calls whose parameters do not change the snapshot (e.g. placeholder departures).
-export const PARAMLESS = new Set(['/transport/departures'])
+// Calls whose parameters do not change the snapshot.
+export const PARAMLESS = new Set()
 
 export function snapshotFile(path, params = {}) {
   const p = PARAMLESS.has(path) ? {} : params

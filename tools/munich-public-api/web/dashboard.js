@@ -85,7 +85,9 @@ const TYPE_LABEL = { all: 'Alle', city: 'Stadtverkehr', sbahn: 'S-Bahn', ubahn: 
 const TYPE_ORDER = ['sbahn', 'ubahn', 'tram', 'bus', 'regional-train', 'long-distance-train', 'other']
 const CITY_TYPES = new Set(['sbahn', 'ubahn', 'tram', 'bus'])
 const fold = s => String(s ?? '').toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim()
+const KNOWN_TYPES = new Set(['sbahn', 'ubahn', 'tram', 'bus', 'regional-train', 'long-distance-train', 'other'])
 function vehicleType(type, raw, line) {
+  if (KNOWN_TYPES.has(type)) return type // already normalised by the Munich backend (timetable)
   const s = `${type ?? ''} ${raw ?? ''} ${line ?? ''}`.toLowerCase()
   if (/\bs\s?\d/.test(String(line ?? '').toLowerCase()) || s.includes('sbahn') || s.includes('s-bahn') || s.includes('suburban')) return 'sbahn'
   if (/\bu\s?\d/.test(String(line ?? '').toLowerCase()) || s.includes('ubahn') || s.includes('u-bahn') || s.includes('metro') || s.includes('subway')) return 'ubahn'
@@ -126,11 +128,13 @@ customElements.define('transport-widget', class extends Widget {
     try {
       const r = await getJson('/transport/departures', { stationRef: this.state.ref }, { signal: this.abort.signal })
       if (id !== this.reqId) return
+      // Static snapshots can be hours old: drop departures that have already left.
+      const now = Date.now()
       const raw = (r.results ?? []).map((d, i) => ({
         i, line: String(d.line ?? '').trim(), destination: String(d.destination ?? '').trim(), type: vehicleType(d.type, d.rawType, d.line),
         dirKey: d.directionCode || fold(d.destination), est: toDate(d.estimatedTime)?.getTime() ?? null, minutes: num(d.minutesUntil), delay: num(d.delayMinutes),
-      }))
-      this.set({ raw, loading: false, error: '', available: r.available !== false, updatedAt: r.updatedAt ?? new Date().toISOString() })
+      })).filter(d => d.est === null || d.est >= now - 30_000)
+      this.set({ raw, loading: false, error: '', available: r.available !== false, realtime: r.realtime !== false, updatedAt: r.updatedAt ?? new Date().toISOString() })
     } catch (e) {
       if (e.name === 'AbortError' || id !== this.reqId) return
       console.warn('Abfahrten konnten nicht geladen werden:', e)
@@ -182,7 +186,8 @@ customElements.define('transport-widget', class extends Widget {
     return [...lines.values()].sort((a, b) => (sort === 'time' ? byTime(a, b) || byLine(a, b) : byLine(a, b)) * dir)
   }
   minutesLabel(d) {
-    const m = d.minutes > 0 ? d.minutes : d.est ? Math.max(0, Math.ceil((d.est - Date.now()) / 60000)) : d.minutes
+    // always from the departure time when known, so cached/static data counts down correctly
+    const m = d.est ? Math.max(0, Math.round((d.est - Date.now()) / 60000)) : d.minutes
     return Number.isFinite(m) ? (m <= 0 ? 'jetzt' : `${m} min`) : (d.est ? tClock.format(d.est) : '–')
   }
   times(list) {
@@ -208,11 +213,14 @@ customElements.define('transport-widget', class extends Widget {
       </div>`).join('')
   }
   renderFilters() {
+    // counts are lines (as in the Augsburg dashboard), not individual departures
+    const lines = new Map()
+    for (const d of this.state.raw) lines.set(`${d.type}|${d.line}`, d.type)
     const counts = new Map()
-    for (const d of this.state.raw) counts.set(d.type, (counts.get(d.type) ?? 0) + 1)
+    for (const t of lines.values()) counts.set(t, (counts.get(t) ?? 0) + 1)
     if (counts.size === 0) return ''
     const city = [...counts].filter(([t]) => CITY_TYPES.has(t)).reduce((a, [, n]) => a + n, 0)
-    const items = [['city', city], ['all', this.state.raw.length], ...[...counts].sort((a, b) => TYPE_ORDER.indexOf(a[0]) - TYPE_ORDER.indexOf(b[0]))]
+    const items = [['city', city], ['all', lines.size], ...[...counts].sort((a, b) => TYPE_ORDER.indexOf(a[0]) - TYPE_ORDER.indexOf(b[0]))]
     return `<div class="filters">${items.map(([t, n]) => `<button type="button" class="chip ${this.state.filter === t ? 'on' : ''}" data-filter="${t}" aria-pressed="${this.state.filter === t}">${esc(TYPE_LABEL[t])} ${n}</button>`).join('')}</div>`
   }
   renderOptions() {
@@ -255,7 +263,7 @@ customElements.define('transport-widget', class extends Widget {
           </div>
           <div class="departures" aria-live="polite">${this.renderDepartures()}</div>
           <div class="tfoot">
-            <span class="live ${s.error || !s.available ? 'off' : ''}">${s.error ? 'Datenabruf fehlgeschlagen' : !s.available ? 'Echtzeit folgt' : s.updatedAt ? `Aktualisiert ${tClock.format(new Date(s.updatedAt))}` : 'wird aktualisiert'}</span>
+            <span class="live ${s.error || !s.available ? 'off' : s.realtime === false ? 'plan' : ''}">${s.error ? 'Datenabruf fehlgeschlagen' : !s.available ? 'Echtzeit folgt' : s.realtime === false ? 'Fahrplan MVV &middot; Soll-Zeiten, keine Echtzeit' : s.updatedAt ? `Aktualisiert ${tClock.format(new Date(s.updatedAt))}` : 'wird aktualisiert'}</span>
             ${this.renderFilters()}
           </div>
         </div>

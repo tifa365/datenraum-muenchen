@@ -3,6 +3,7 @@
 // (all period/site combinations), writes them as JSON snapshots and copies the page
 // and images. Usage: node build-static.mjs [outDir]   (default: ../../dist-pages)
 // Env passed through to the server: PERSON_DATA_DIR (optional), USER_AGENT, DB_FILE.
+// Transport departures come from the MVV timetable (GTFS, ingested on first run).
 // Parking occupancy test data is never included in a static build. Pedestrian data comes from
 // PERSON_DATA_DIR if set, otherwise from the committed static-snapshots/person.
 import { spawn } from 'node:child_process'
@@ -43,9 +44,10 @@ try {
   rmSync(out, { recursive: true, force: true })
   mkdirSync(join(out, 'api'), { recursive: true })
   let files = 0
-  const save = async (path, params = {}) => {
-    const data = await getJson(port, path, params)
-    const file = join(out, 'api', snapshotFile(path, params))
+  // fileParams: the parameters the page sends (they name the file); params may add build-only ones.
+  const save = async (path, params = {}, fileParams = params, shape = d => d) => {
+    const data = shape(await getJson(port, path, params))
+    const file = join(out, 'api', snapshotFile(path, fileParams))
     mkdirSync(dirname(file), { recursive: true })
     writeFileSync(file, JSON.stringify(data))
     files++
@@ -57,8 +59,12 @@ try {
   await save('/opendata')
   await save('/machmit-projects')
   await save('/parking')
-  await save('/transport/stations')
-  await save('/transport/departures')
+  const stationList = await save('/transport/stations')
+  // Timetable departures for every Munich station, next 8 h (the site is rebuilt every 6 h);
+  // only the fields the tile shows are kept to keep the static files small.
+  console.log(`[build] timetable departures for ${stationList.results.length} stations ...`)
+  const slim = d => ({ ...d, results: (d.results ?? []).map(x => ({ line: x.line, destination: x.destination, type: x.type, directionCode: x.directionCode, estimatedTime: x.estimatedTime, delayMinutes: x.delayMinutes })) })
+  for (const st of stationList.results) await save('/transport/departures', { stationRef: st.stationRef, horizon: '8', limit: '600' }, { stationRef: st.stationRef }, slim)
   console.log('[build] bike data (first run ingests the monthly CSVs, can take minutes) ...')
   const bikeSites = await save('/bike/sites')
   const personSites = await save('/person/sites')

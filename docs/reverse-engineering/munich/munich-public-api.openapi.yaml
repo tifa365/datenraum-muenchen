@@ -15,7 +15,8 @@ info:
 
     `/public/person/sites` and `/public/person/traffic` are served from a frozen local
     Passantendaten archive (data through 2026-10-23, `PERSON_DATA_DIR`).
-    Placeholder: `/public/transport/departures` (realtime source pending).
+    `/public/transport/departures` returns scheduled departures from the MVV timetable
+    (GTFS); `realtime: false`, no delays.
   license:
     name: AGPL-3.0-only
     identifier: AGPL-3.0-only
@@ -141,6 +142,29 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/TrafficResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/transport/departures:
+    get:
+      operationId: listDepartures
+      summary: Scheduled departures at one station (MVV timetable, no realtime)
+      parameters:
+        - name: stationRef
+          in: query
+          description: Station DHID, e.g. `de:09162:2` (Marienplatz).
+          schema: { type: string }
+        - name: horizon
+          in: query
+          description: Look-ahead in hours (1–12, default 2).
+          schema: { type: integer, minimum: 1, maximum: 12, default: 2 }
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 1000, default: 60 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DeparturesResponse' }
         '404': { $ref: '#/components/responses/NotFound' }
   /public/transport/stations:
     get:
@@ -348,6 +372,38 @@ components:
               lastData: { type: [string, 'null'], format: date }
               granularity: { type: string, examples: [PT1H] }
               active: { type: boolean }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    Departure:
+      type: object
+      required: [line, destination, type, directionCode, estimatedTime, delayMinutes]
+      properties:
+        id: { type: string }
+        line: { type: string, examples: [S3, U6, '17'] }
+        lineRef: { type: string }
+        directionCode: { type: string, description: GTFS direction_id }
+        type: { type: string, enum: [sbahn, ubahn, tram, bus, regional-train, long-distance-train, other] }
+        rawType: { type: string }
+        origin: { type: [string, 'null'] }
+        destination: { type: string }
+        stopPointRef: { type: string }
+        timetabledTime: { type: string, format: date-time }
+        estimatedTime: { type: string, format: date-time, description: Equals timetabledTime (no realtime) }
+        delayMinutes: { type: 'null', description: Unknown without realtime }
+        realtime: { type: boolean }
+        minutesUntil: { type: integer }
+    DeparturesResponse:
+      type: object
+      required: [updatedAt, stationRef, stopName, count, results, available, realtime, provenance]
+      properties:
+        updatedAt: { type: string, format: date-time }
+        stationRef: { type: [string, 'null'] }
+        stopName: { type: [string, 'null'] }
+        count: { type: integer }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/Departure' }
+        available: { type: boolean }
+        realtime: { type: boolean, description: False for timetable data }
         provenance: { $ref: '#/components/schemas/Provenance' }
     PeriodWindow:
       type: object

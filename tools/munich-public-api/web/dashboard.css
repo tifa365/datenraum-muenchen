@@ -94,6 +94,7 @@ a { color: inherit; }
 .tfoot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 8px; font-size: 11px; color: var(--muted); }
 .live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--brand); }
 .live.off::before { background: #aaa; }
+.live.plan::before { background: var(--brand); border-radius: 0; }
 .filters { display: flex; gap: 5px; margin-left: auto; flex-wrap: wrap; }
 .notice { margin-top: 12px; padding: 12px 14px; background: var(--row); font-size: 13px; line-height: 1.4; }
 .notice b { display: block; margin-bottom: 2px; }

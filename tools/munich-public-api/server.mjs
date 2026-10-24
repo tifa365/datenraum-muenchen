@@ -13,6 +13,7 @@ import * as parking from './src/adapters/parking.mjs'
 import * as parkraumwende from './src/adapters/parkraumwende.mjs'
 import * as bike from './src/adapters/bike.mjs'
 import * as mvv from './src/adapters/mvv.mjs'
+import * as gtfs from './src/adapters/gtfs.mjs'
 import * as person from './src/adapters/person.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -36,8 +37,10 @@ const bikeSites = createSource({ name: 'bike-wfs-sites', ttlSeconds: 86400, stor
 // Ingests the current and previous year's monthly 15-minute CSVs into sqlite (only new/changed files).
 const bikeIngest = createSource({ name: 'bike-csv-ingest', ttlSeconds: 21600, store, load: bike.makeIngestLoader(store.db, { years: () => { const y = new Date().getUTCFullYear(); return [y - 1, y] } }) })
 const stations = createSource({ name: 'mvv-stations', ttlSeconds: 7 * 86400, store, load: mvv.load })
+// MVV timetable (GTFS): re-ingested only when the feed's Last-Modified changes (checked daily).
+const timetable = createSource({ name: 'mvv-gtfs', ttlSeconds: 86400, store, load: gtfs.makeLoader(store.db, join(here, 'data', 'gtfs', 'gesamt_gtfs.zip')) })
 
-const sources = [proposalCounts, cityInfo, openData, parkingSites, parkingOccupancy, bikeSites, bikeIngest, stations].filter(Boolean)
+const sources = [proposalCounts, cityInfo, openData, parkingSites, parkingOccupancy, bikeSites, bikeIngest, stations, timetable].filter(Boolean)
 
 // --- routes ----------------------------------------------------------------
 // Placeholders until a realtime transport source exists and while no Passantendaten archive is configured:
@@ -51,10 +54,18 @@ const PEDESTRIAN_SITES = ['Kaufingerstraße', 'Maximilianstraße', 'Neuhauser St
 const placeholder = (source, notes) => ({ available: false, provenance: { source, licence: { id: 'unknown', url: null }, attribution: null, retrievedAt: new Date().toISOString(), observedAt: null, stale: false, notes } })
 
 const routes = {
-  '/public/transport/departures': async ({ stationRef }) => ({
-    updatedAt: new Date().toISOString(), stationRef: stationRef ?? null, stopName: null, count: 0, results: [],
-    ...placeholder('none', 'Realtime departures follow once a licensed source (BEG/DEFAS, MVV TRIAS or MVG) is connected.'),
-  }),
+  // Scheduled departures from the MVV timetable; `horizon` (hours, max 12) and `limit` are used by the static build.
+  '/public/transport/departures': async ({ stationRef, horizon, limit }) => {
+    const t = await timetable.get().catch(e => { console.error('[gtfs]', e.message); return null })
+    if (!t?.payload?.departures) return {
+      updatedAt: new Date().toISOString(), stationRef: stationRef ?? null, stopName: null, count: 0, results: [],
+      ...placeholder('none', 'Timetable not available yet.'),
+    }
+    return gtfs.buildDeparturesResponse(store.db, stationRef, {
+      horizonHours: Math.min(12, Math.max(1, Number(horizon) || 2)), limit: Math.min(1000, Math.max(1, Number(limit) || 60)),
+      retrievedAt: t.retrievedAt, stale: t.stale,
+    })
+  },
   '/public/person/sites': async () => personArchive ? person.sitesResponse(personArchive) : ({
     sites: PEDESTRIAN_SITES.map(Location => ({ Location })),
     ...placeholder('https://muenchen.digital/meldungen/digitaler-zwilling/2024/passantenfrequenzen-de.html', 'Site list from the city article (2024); counts follow once PERSON_DATA_DIR is set.'),
