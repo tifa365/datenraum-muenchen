@@ -4,7 +4,7 @@
 // and images. Usage: node build-static.mjs [outDir]   (default: ../../dist-pages)
 // Env passed through to the server: PERSON_DATA_DIR (optional), USER_AGENT, DB_FILE.
 // Transport departures come from the MVV timetable (GTFS, ingested on first run).
-// Parking occupancy test data is never included in a static build. Pedestrian data comes from
+// Parking occupancy: parkraumwende by default (STATIC_PARKING_OCCUPANCY=off to disable). Pedestrian data comes from
 // PERSON_DATA_DIR if set, otherwise from the committed static-snapshots/person.
 import { spawn } from 'node:child_process'
 import http from 'node:http'
@@ -30,7 +30,8 @@ const getJson = (port, path, params = {}) => new Promise((res, rej) => {
 
 const port = await freePort()
 const env = { ...process.env, PORT: String(port), NO_SCHEDULER: '1' }
-delete env.PARKING_OCCUPANCY
+// Parking occupancy from parkraumwende (community mirror of the Parkleitsystem), shown with its source.
+env.PARKING_OCCUPANCY = process.env.STATIC_PARKING_OCCUPANCY ?? 'parkraumwende'
 const server = spawn(process.execPath, ['--no-warnings=ExperimentalWarning', join(here, 'server.mjs')], { env, stdio: ['ignore', 'inherit', 'inherit'] })
 const stop = () => { try { server.kill() } catch {} }
 process.on('exit', stop)
@@ -82,14 +83,28 @@ try {
   }
 
   // page + images
-  for (const f of ['index.html', 'dashboard.css', 'dashboard.js', 'snapshot-key.mjs']) cpSync(join(here, 'web', f), join(out, f))
+  // Cache busting: GitHub Pages lets browsers cache files for 10 min, and an old cached module
+  // would request snapshot files that no longer exist. Every build gets its own ?v= on all
+  // page, script and module URLs.
+  const v = Date.now().toString(36)
+  const rewrite = (file, pairs) => {
+    let txt = readFileSync(join(here, 'web', file), 'utf8')
+    for (const [a, b] of pairs) { if (!txt.includes(a)) throw new Error(`${file}: "${a}" not found`); txt = txt.split(a).join(b) }
+    writeFileSync(join(out, file), txt)
+  }
+  cpSync(join(here, 'web', 'snapshot-key.mjs'), join(out, 'snapshot-key.mjs'))
+  cpSync(join(here, 'web', 'dashboard.css'), join(out, 'dashboard.css'))
+  rewrite('dashboard.js', [["from './snapshot-key.mjs'", `from './snapshot-key.mjs?v=${v}'`]])
+  rewrite('index.html', [['<iframe src="dashboard.html"', `<iframe src="dashboard.html?v=${v}"`]])
   const html = readFileSync(join(here, 'web', 'dashboard.html'), 'utf8')
     .replace(/window\.__ENV__ = \{[^}]*\}/, "window.__ENV__ = { API_BASE_URL: 'api', STATIC: true }")
-  if (!html.includes("STATIC: true")) throw new Error('could not switch dashboard.html to static mode')
+    .replace('href="dashboard.css"', `href="dashboard.css?v=${v}"`)
+    .replace('src="dashboard.js"', `src="dashboard.js?v=${v}"`)
+  if (!html.includes("STATIC: true") || !html.includes(`dashboard.js?v=${v}`)) throw new Error('could not prepare dashboard.html for the static build')
   writeFileSync(join(out, 'dashboard.html'), html)
   cpSync(join(repo, 'config/munich/assets'), join(out, 'config/munich/assets'), { recursive: true })
   writeFileSync(join(out, '.nojekyll'), '')
-  writeFileSync(join(out, 'api', '_build.json'), JSON.stringify({ builtAt: new Date().toISOString(), files, pedestrianSource: process.env.PERSON_DATA_DIR ? 'archive' : existsSync(join(here, 'static-snapshots', 'person')) ? 'frozen-snapshots' : 'placeholder' }, null, 2))
+  writeFileSync(join(out, 'api', '_build.json'), JSON.stringify({ builtAt: new Date().toISOString(), version: v, files, parkingOccupancy: env.PARKING_OCCUPANCY, pedestrianSource: process.env.PERSON_DATA_DIR ? 'archive' : existsSync(join(here, 'static-snapshots', 'person')) ? 'frozen-snapshots' : 'placeholder' }, null, 2))
   console.log(`[build] ${files} snapshots in ${Math.round((Date.now() - started) / 1000)} s -> ${out}`)
 } finally {
   stop()

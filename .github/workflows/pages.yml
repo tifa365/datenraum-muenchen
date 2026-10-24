@@ -1,12 +1,12 @@
 # Builds a static snapshot of the München dashboard and deploys it to GitHub Pages.
-# Runs on every push to main, every 6 hours (fresh data) and on demand.
+# Runs on every push to main, every hour (fresh data) and on demand.
 name: Pages
 
 on:
   push:
     branches: [main]
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:

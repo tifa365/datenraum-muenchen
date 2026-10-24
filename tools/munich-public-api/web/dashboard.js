@@ -285,7 +285,7 @@ customElements.define('parking-widget', class extends Widget {
       const items = (r.results ?? []).map(p => ({ id: String(p.id ?? ''), name: String(p.name ?? ''), free: num(p.free), total: num(p.total), occupied: num(p.occupied) }))
         .filter(p => p.name && p.free !== null && p.total !== null && p.total > 0)
       const stamps = (r.results ?? []).map(p => p.timestamp).filter(Boolean).sort()
-      this.set({ items, updatedAt: stamps.at(-1) ?? null, loading: false, error: null, image: r.image ?? null })
+      this.set({ items, updatedAt: stamps.at(-1) ?? null, loading: false, error: null, image: r.image ?? null, source: r.occupancyProvenance?.attribution ?? null })
     } catch (e) {
       console.error('Parkdaten konnten nicht geladen werden', e)
       if (!silent) this.set({ loading: false, error: 'Parkdaten konnten nicht geladen werden.', items: [] })
@@ -310,7 +310,7 @@ customElements.define('parking-widget', class extends Widget {
           </div>
           <div class="p-bar" aria-label="Auslastung der Parkhäuser"><i style="width:${occ}%"></i></div>
           <div class="p-meta">
-            <div>${summary}</div>
+            <div>${summary}${s.items.length && s.source ? `<div class="p-src">Quelle: ${esc(s.source)}</div>` : ''}</div>
             ${!s.loading && !s.error && s.items.length ? `<div class="sorts">
               <button type="button" class="pill ${s.sortBy === 'name' ? 'on' : ''}" data-sort="name">Name${arrow('name')}</button>
               <button type="button" class="pill ${s.sortBy === 'free' ? 'on' : ''}" data-sort="free">Freie Stellpl&auml;tze${arrow('free')}</button></div>` : ''}

@@ -27,7 +27,8 @@ a { color: inherit; }
   .tile > * { height: auto; }
   .tile.large > * > .card { min-height: 470px; }
   .tile.small > * > .card { min-height: 220px; }
-  .p-list { max-height: 320px; }
+  .p-src { margin-top: 2px; color: var(--muted); font-size: 10px; font-weight: 400; }
+.p-list { max-height: 320px; }
 }
 @media (max-width: 520px) { .tile.small { grid-column: span 12; } }
 
