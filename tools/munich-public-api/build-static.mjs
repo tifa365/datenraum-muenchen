@@ -3,11 +3,12 @@
 // (all period/site combinations), writes them as JSON snapshots and copies the page
 // and images. Usage: node build-static.mjs [outDir]   (default: ../../dist-pages)
 // Env passed through to the server: PERSON_DATA_DIR (optional), USER_AGENT, DB_FILE.
-// Parking occupancy test data is never included in a static build.
+// Parking occupancy test data is never included in a static build. Pedestrian data comes from
+// PERSON_DATA_DIR if set, otherwise from the committed static-snapshots/person.
 import { spawn } from 'node:child_process'
 import http from 'node:http'
 import net from 'node:net'
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { snapshotFile } from './web/snapshot-key.mjs'
@@ -66,6 +67,14 @@ try {
     for (const siteName of ['all', ...personSites.sites.map(s => s.Location)]) await save('/person/traffic', { period, siteName })
   }
 
+  // Frozen pedestrian snapshots: without a local archive, use the committed aggregates.
+  const frozen = join(here, 'static-snapshots', 'person')
+  if (!process.env.PERSON_DATA_DIR && existsSync(frozen)) {
+    rmSync(join(out, 'api', 'person'), { recursive: true, force: true })
+    cpSync(frozen, join(out, 'api', 'person'), { recursive: true })
+    console.log('[build] pedestrian tile: frozen snapshots from static-snapshots/person')
+  }
+
   // page + images
   for (const f of ['index.html', 'dashboard.css', 'dashboard.js', 'snapshot-key.mjs']) cpSync(join(here, 'web', f), join(out, f))
   const html = readFileSync(join(here, 'web', 'dashboard.html'), 'utf8')
@@ -74,7 +83,7 @@ try {
   writeFileSync(join(out, 'dashboard.html'), html)
   cpSync(join(repo, 'config/munich/assets'), join(out, 'config/munich/assets'), { recursive: true })
   writeFileSync(join(out, '.nojekyll'), '')
-  writeFileSync(join(out, 'api', '_build.json'), JSON.stringify({ builtAt: new Date().toISOString(), files, pedestrianArchive: Boolean(process.env.PERSON_DATA_DIR) }, null, 2))
+  writeFileSync(join(out, 'api', '_build.json'), JSON.stringify({ builtAt: new Date().toISOString(), files, pedestrianSource: process.env.PERSON_DATA_DIR ? 'archive' : existsSync(join(here, 'static-snapshots', 'person')) ? 'frozen-snapshots' : 'placeholder' }, null, 2))
   console.log(`[build] ${files} snapshots in ${Math.round((Date.now() - started) / 1000)} s -> ${out}`)
 } finally {
   stop()

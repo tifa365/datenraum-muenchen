@@ -42,7 +42,7 @@ API calls, refresh cadence, sorting, empty states); no Augsburg code is bundled.
 request as JSON (`api/…`, file names from `web/snapshot-key.mjs`), copies the page and images and
 switches `dashboard.html` to static mode. `.github/workflows/pages.yml` runs it on every push to
 `main` and every 6 hours and deploys to https://tifa365.github.io/datenraum-muenchen/.
-The public build never includes parking-occupancy test data or the Passantendaten archive.
+The public build never includes parking-occupancy test data or the Passantendaten archive itself; the pedestrian tile uses the frozen aggregates in `static-snapshots/person/`.
 
 ## Run
 
