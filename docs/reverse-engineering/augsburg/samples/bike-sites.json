@@ -1,0 +1,54 @@
+{
+  "sites": [
+    {
+      "siteId": "100061140",
+      "name": "Dieselbrücke",
+      "description": "",
+      "lat": 48.38557666554678,
+      "lon": 10.886125237428402,
+      "firstData": "2020-06-09T22:00:00.000Z",
+      "lastData": "2026-10-24T02:45:00.000Z",
+      "granularity": "PT15M"
+    },
+    {
+      "siteId": "100056927",
+      "name": "Färberstraße/Gollwitzerstr.",
+      "description": "",
+      "lat": 48.36136058485652,
+      "lon": 10.874025279343751,
+      "firstData": "2019-10-13T22:00:00.000Z",
+      "lastData": "2026-10-24T02:30:00.000Z",
+      "granularity": "PT15M"
+    },
+    {
+      "siteId": "100056930",
+      "name": "Friedberger Straße östlich Afrabrücke",
+      "description": "",
+      "lat": 48.35510477636278,
+      "lon": 10.937634060737382,
+      "firstData": "2019-10-25T22:00:00.000Z",
+      "lastData": "2026-10-24T02:45:00.000Z",
+      "granularity": "PT15M"
+    },
+    {
+      "siteId": "100056929",
+      "name": "Friedrich-Ebert-Straße östlich Haltestelle Messe",
+      "description": "",
+      "lat": 48.337780859672115,
+      "lon": 10.885667684703972,
+      "firstData": "2019-10-20T22:00:00.000Z",
+      "lastData": "2026-10-24T00:15:00.000Z",
+      "granularity": "PT15M"
+    },
+    {
+      "siteId": "100056923",
+      "name": "Gögginger Straße südlich Rosenaustraße",
+      "description": "",
+      "lat": 48.36002861530527,
+      "lon": 10.889625798950213,
+      "firstData": "2018-12-31T23:00:00.000Z",
+      "lastData": "2026-10-23T22:15:00.000Z",
+      "granularity": "PT15M"
+    }
+  ]
+}

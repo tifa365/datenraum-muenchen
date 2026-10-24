@@ -1,0 +1,76 @@
+{
+  "updatedAt": "2026-10-24T16:47:42.780Z",
+  "count": 278,
+  "results": [
+    {
+      "id": "de:09761:401",
+      "stationRef": "de:09761:401",
+      "name": "Augsburg, Plärrer P+R",
+      "lat": 48.37561,
+      "lon": 10.883251,
+      "status": "ok",
+      "maxDelay": 1,
+      "types": [
+        "tram",
+        "bus"
+      ],
+      "updatedAt": "2026-10-24T16:47:26.603Z"
+    },
+    {
+      "id": "de:09761:111",
+      "stationRef": "de:09761:111",
+      "name": "Augsburg Haunstetterstraße",
+      "lat": 48.355282,
+      "lon": 10.900984,
+      "status": "minor",
+      "maxDelay": 5,
+      "types": [
+        "tram",
+        "train"
+      ],
+      "updatedAt": "2026-10-24T16:47:32.504Z"
+    },
+    {
+      "id": "de:09761:100",
+      "stationRef": "de:09761:100",
+      "name": "Augsburg Hbf",
+      "lat": 48.365441,
+      "lon": 10.885569,
+      "status": "critical",
+      "maxDelay": 29,
+      "types": [
+        "tram",
+        "train",
+        "bus"
+      ],
+      "updatedAt": "2026-10-24T16:47:32.701Z"
+    },
+    {
+      "id": "de:09761:101",
+      "stationRef": "de:09761:101",
+      "name": "Augsburg, Königsplatz",
+      "lat": 48.365393,
+      "lon": 10.894373,
+      "status": "ok",
+      "maxDelay": 3,
+      "types": [
+        "tram",
+        "bus"
+      ],
+      "updatedAt": "2026-10-24T16:47:32.501Z"
+    },
+    {
+      "id": "de:09761:206",
+      "stationRef": "de:09761:206",
+      "name": "Augsburg, Kammgarn",
+      "lat": 48.362081,
+      "lon": 10.916696,
+      "status": "ok",
+      "maxDelay": 0,
+      "types": [
+        "bus"
+      ],
+      "updatedAt": "2026-10-24T16:43:45.704Z"
+    }
+  ]
+}

@@ -1,0 +1,383 @@
+openapi: 3.1.0
+info:
+  title: Civora Alerts "public" API (Augsburg deployment)
+  version: 2026-10-24
+  summary: Unauthenticated read-only JSON endpoints that feed the public Smart City Dashboard of Datenraum Augsburg.
+  description: |
+    Reverse-engineered on 2026-10-24 from the XHR calls made by
+    https://smart-city-dashboard.smartcity-udp.augsburg.de/ (which is embedded as an iframe on
+    https://smartes.augsburg.de/app/home for logged-out visitors).
+
+    Every path below was replayed with curl and returned HTTP 200 with the documented shape.
+    Observed behaviour:
+    - No authentication. Requests without any Origin or Referer header succeed.
+    - CORS: `Access-Control-Allow-Origin` is only emitted for the dashboard's own origin;
+      other browser origins get no ACAO header (server-side the data is still returned).
+      Allowed methods are `GET, OPTIONS`; allowed headers are `Content-Type, Authorization`.
+    - Unknown paths return an Express-style HTML 404 (`Cannot GET /public/...`).
+    - Responses carry weak ETags; no explicit Cache-Control was observed.
+    - The service is the "Civora Alerts" backend (`alertsUrl` in the CIVORA UI config). The
+      authenticated part of that service is not covered here.
+  license:
+    name: Documentation CC0-1.0; the API itself has no published licence
+    identifier: CC0-1.0
+security: []
+servers:
+  - url: https://alerts.smartcity-udp.augsburg.de/public
+tags:
+  - { name: city, description: Static city facts }
+  - { name: transport, description: Public transport (AVV / VDV stop references) }
+  - { name: parking, description: Parking garage occupancy }
+  - { name: counters, description: Bicycle and pedestrian counting stations }
+  - { name: participation, description: Citizen participation projects (machmit.augsburg.de) }
+paths:
+  /city-info:
+    get:
+      tags: [city]
+      operationId: getCityInfo
+      summary: City population and area (sourced from Wikidata, refreshed daily)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CityInfo' }
+              example:
+                city: Augsburg
+                population: 301786
+                populationDate: '2025-12-31'
+                areaKm2: 146.93
+                source: Wikidata Q2749
+                fetchedAt: '2026-10-24T03:00:00.679Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transport/stations:
+    get:
+      tags: [transport]
+      operationId: listTransportStations
+      summary: All monitored stops with their current delay status
+      description: "278 stops observed. `status` is derived from `maxDelay`; `no-data` stops have `maxDelay: null`."
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/StationsResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transport/departures:
+    get:
+      tags: [transport]
+      operationId: listDepartures
+      summary: Next departures (real-time) at one stop
+      parameters:
+        - name: stationRef
+          in: query
+          required: false
+          description: "VDV stop reference, e.g. `de:09761:101` (Augsburg, Königsplatz). When omitted the result is empty (`stopName: null, count: 0`)."
+          schema: { type: string, example: 'de:09761:101' }
+      responses:
+        '200':
+          description: OK (also for unknown or missing stationRef)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DeparturesResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parking:
+    get:
+      tags: [parking]
+      operationId: listParking
+      summary: Live occupancy of parking garages
+      description: "15 garages observed. Garages whose feed is broken have `state: error`; the counts are still present."
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ParkingResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /bike/sites:
+    get:
+      tags: [counters]
+      operationId: listBikeSites
+      summary: Bicycle counting stations
+      description: 12 sites observed, all with 15-minute granularity (`PT15M`), data since 2020.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BikeSitesResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /bike/traffic:
+    get:
+      tags: [counters]
+      operationId: getBikeTraffic
+      summary: Aggregated bicycle counts for a period, with previous-period comparison
+      parameters:
+        - $ref: '#/components/parameters/period'
+        - name: siteId
+          in: query
+          required: false
+          description: "`all` or one `siteId` from `/bike/sites`. With a single site the `sites` array contains only that site."
+          schema: { type: string, default: all, example: '100061140' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrafficResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /person/sites:
+    get:
+      tags: [counters]
+      operationId: listPersonSites
+      summary: Pedestrian counting locations
+      description: Note the different shape from `/bike/sites`. Sites are identified by name only (`Location`), 7 observed.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PersonSitesResponse' }
+              example:
+                sites:
+                  - { Location: Annastraße }
+                  - { Location: Bahnhofstraße }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /person/traffic:
+    get:
+      tags: [counters]
+      operationId: getPersonTraffic
+      summary: Aggregated pedestrian counts for a period, with previous-period comparison
+      parameters:
+        - $ref: '#/components/parameters/period'
+        - name: siteName
+          in: query
+          required: false
+          description: "`all` or one `Location` value from `/person/sites` (URL-encoded, e.g. `Annastra%C3%9Fe`)."
+          schema: { type: string, default: all }
+      responses:
+        '200':
+          description: "OK. Same shape as bike traffic, but `sites[]` entries have `name` and `count` only (no `siteId`)."
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrafficResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /machmit-projects:
+    get:
+      tags: [participation]
+      operationId: listMachmitProjects
+      summary: Currently running citizen participation projects (scraped from machmit.augsburg.de, cached 10 min)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MachmitResponse' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Express-style HTML page `Cannot GET /public/...` for unknown paths
+      content:
+        text/html:
+          schema: { type: string }
+  parameters:
+    period:
+      name: period
+      in: query
+      required: false
+      description: |
+        Aggregation window. Observed values: `7d` (hourly buckets, 168 points) and `30d` (daily buckets, 30 points).
+        Any other value (e.g. `24h`, `1y`, `xyz`) silently falls back to `7d`.
+      schema: { type: string, enum: [7d, 30d], default: 7d }
+  schemas:
+    CityInfo:
+      type: object
+      required: [city, population, populationDate, areaKm2, source, fetchedAt]
+      properties:
+        city: { type: string }
+        population: { type: integer }
+        populationDate: { type: string, format: date }
+        areaKm2: { type: number }
+        source: { type: string, description: e.g. "Wikidata Q2749" }
+        fetchedAt: { type: string, format: date-time }
+    Station:
+      type: object
+      required: [id, stationRef, name, lat, lon, status, maxDelay, types, updatedAt]
+      properties:
+        id: { type: string, description: Same value as stationRef, example: 'de:09761:401' }
+        stationRef: { type: string, example: 'de:09761:401' }
+        name: { type: string, example: 'Augsburg, Plärrer P+R' }
+        lat: { type: number }
+        lon: { type: number }
+        status: { type: string, enum: [ok, minor, critical, no-data] }
+        maxDelay: { type: [integer, 'null'], description: "Largest current delay in minutes at this stop; null when no real-time data (status no-data). Observed 0..29." }
+        types:
+          type: array
+          items: { type: string, enum: [bus, tram, train] }
+        updatedAt: { type: string, format: date-time }
+    StationsResponse:
+      type: object
+      required: [updatedAt, count, results]
+      properties:
+        updatedAt: { type: string, format: date-time }
+        count: { type: integer, example: 278 }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/Station' }
+    Departure:
+      type: object
+      required: [id, line, lineRef, directionCode, origin, destination, type, rawType, stopPointRef, stopName, originStopPointRef, destinationStopPointRef, estimatedTime, timetabledTime, timestamp, delayMinutes, minutesUntil]
+      properties:
+        id: { type: string, example: 'ID-3D9D13A3-62AA-4145-912A-2D0ED8A08313' }
+        line: { type: string, example: '8' }
+        lineRef: { type: string, example: 'avg:03008::R' }
+        directionCode: { type: string, enum: [H, R], description: Hin / Rück }
+        origin: { type: string }
+        destination: { type: string }
+        type: { type: string, enum: [bus, tram], description: Normalised vehicle type }
+        rawType: { type: string, description: "Source vehicle type, observed cityTram and localBus" }
+        stopPointRef: { type: string, example: 'de:09761:101:51:C3' }
+        stopName: { type: string }
+        originStopPointRef: { type: string }
+        destinationStopPointRef: { type: string }
+        estimatedTime: { type: string, format: date-time }
+        timetabledTime: { type: string, format: date-time }
+        timestamp: { type: string, format: date-time, description: When the real-time record was produced }
+        delayMinutes: { type: integer }
+        minutesUntil: { type: integer }
+    DeparturesResponse:
+      type: object
+      required: [updatedAt, stopName, count, results]
+      properties:
+        updatedAt: { type: string, format: date-time }
+        stationRef: { type: string, description: Echoed query parameter; absent when it was not given }
+        stopName: { type: [string, 'null'], example: 'Augsburg, Königsplatz' }
+        count: { type: integer, description: Observed maximum 20 }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/Departure' }
+    ParkingFacility:
+      type: object
+      required: [id, name, type, lat, lon, state, total, occupied, free, timestamp]
+      properties:
+        id: { type: string, example: '102213' }
+        name: { type: string, example: Annahof }
+        type: { type: string, description: Only parkingGarage observed }
+        lat: { type: number }
+        lon: { type: number }
+        state: { type: string, enum: [ok, error] }
+        total: { type: integer }
+        occupied: { type: integer }
+        free: { type: integer }
+        timestamp: { type: string, format: date-time }
+    ParkingResponse:
+      type: object
+      required: [updatedAt, count, results]
+      properties:
+        updatedAt: { type: string, format: date-time }
+        count: { type: integer, example: 15 }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/ParkingFacility' }
+    BikeSite:
+      type: object
+      required: [siteId, name, description, lat, lon, firstData, lastData, granularity]
+      properties:
+        siteId: { type: string, example: '100061140' }
+        name: { type: string, example: Dieselbrücke }
+        description: { type: string }
+        lat: { type: number }
+        lon: { type: number }
+        firstData: { type: string, format: date-time }
+        lastData: { type: string, format: date-time }
+        granularity: { type: string, description: "ISO 8601 duration, observed PT15M" }
+    BikeSitesResponse:
+      type: object
+      required: [sites]
+      properties:
+        sites:
+          type: array
+          items: { $ref: '#/components/schemas/BikeSite' }
+    PersonSitesResponse:
+      type: object
+      required: [sites]
+      properties:
+        sites:
+          type: array
+          items:
+            type: object
+            required: [Location]
+            properties:
+              Location: { type: string, description: "Site name, used as siteName in /person/traffic" }
+    PeriodWindow:
+      type: object
+      required: [from, to, count]
+      properties:
+        from: { type: string, format: date }
+        to: { type: string, format: date }
+        count: { type: integer }
+    TrafficResponse:
+      type: object
+      required: [period, bucket, updatedUntil, lastTimestamp, current, previous, changePercent, chart, sites]
+      properties:
+        period: { type: string, enum: [7d, 30d], description: Effective period (after fallback) }
+        bucket: { type: string, enum: [hour, day] }
+        updatedUntil: { type: string, format: date, description: Last complete day included }
+        lastTimestamp: { type: string, format: date-time }
+        current: { $ref: '#/components/schemas/PeriodWindow' }
+        previous: { $ref: '#/components/schemas/PeriodWindow' }
+        changePercent: { type: number, description: "Percent change current vs previous, one decimal, may be negative" }
+        chart:
+          type: array
+          description: One entry per bucket. For bucket=hour the key is an ISO timestamp, for bucket=day a plain date.
+          items:
+            type: object
+            required: [bucket, count]
+            properties:
+              bucket: { type: string, example: '2026-10-16T22:00:00.000Z' }
+              count: { type: integer }
+        sites:
+          type: array
+          description: Per-site totals for the current window. Bike entries carry siteId+name, person entries only name.
+          items:
+            type: object
+            required: [name, count]
+            properties:
+              siteId: { type: string }
+              name: { type: string }
+              count: { type: integer }
+    MachmitProject:
+      type: object
+      required: [id, title, subtitle, url, image, startDate, endDate, daysLeft]
+      properties:
+        id: { type: integer, example: 395 }
+        title: { type: string }
+        subtitle: { type: string }
+        url: { type: string, format: uri }
+        image: { type: string, format: uri, description: Rails ActiveStorage representation URL }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date }
+        daysLeft: { type: integer }
+    MachmitResponse:
+      type: object
+      required: [title, source, count, totalRunningCount, projects, fetchedAt, cacheSeconds]
+      properties:
+        title: { type: string, example: Aktuell mitmachen }
+        source: { type: string, example: machmit.augsburg.de }
+        count: { type: integer, description: Number of projects returned (3) }
+        totalRunningCount: { type: integer, description: All running projects on the source site (12) }
+        projects:
+          type: array
+          items: { $ref: '#/components/schemas/MachmitProject' }
+        fetchedAt: { type: string, format: date-time }
+        cacheSeconds: { type: integer, example: 600 }

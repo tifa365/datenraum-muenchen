@@ -1,0 +1,13 @@
+{
+  "name": "munich-public-api",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Munich stand-in for the Civora Alerts public API that feeds the Smart City Dashboard",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node --no-warnings=ExperimentalWarning server.mjs",
+    "test": "node --no-warnings=ExperimentalWarning --test \"test/*.test.mjs\""
+  }
+}

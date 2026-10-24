@@ -1,0 +1,52 @@
+/*
+ * This file is part of Civora UI.
+ *
+ * Copyright (C) 2025 DKSR GmbH.
+ *
+ * Civora UI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* Variables for the (transparent) hero card. */
+:root {
+
+  --hero-card-background: linear-gradient(187.06deg, rgba(255, 255, 255, 0.73) 69.27%, rgba(196, 196, 196, 0) 172.21%);
+  --hero-card-backdrop-filter: blur(10px);
+
+  --hero-card-before-padding: 1.8px;
+  --hero-card-before-background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  --hero-card-before-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  --hero-card-before-mask-composite: exclude;
+
+  --hero-card-header-text-primary-color: var(--color-primary-500);
+  --hero-card-header-text-secondary-color: var(--color-text-light);
+
+  --hero-button-primary-bg-color: var(--color-button-regular);
+  --hero-button-primary-border-color: var(--color-button-regular);
+  --hero-button-primary-text-color: var(--color-button-text);
+  --hero-button-primary-bg-color-hover: var(--color-button-hover);
+  --hero-button-primary-border-color-hover: var(--color-button-hover);
+  --hero-button-primary-bg-color-active: var(--color-button-pressed);
+  --hero-button-primary-border-color-active: var(--color-button-pressed);
+
+  --hero-button-secondary-bg-color: var(--color-button-text);
+  --hero-button-secondary-border-color: var(--color-button-regular);
+  --hero-button-secondary-text-color: var(--color-button-regular);
+  --hero-button-secondary-border-color-hover: var(--color-button-hover);
+  --hero-button-secondary-bg-color-active: var(--color-button-pressed);
+
+  --hero-button-tertiary-bg-color: transparent;
+  --hero-button-tertiary-text-color: var(--color-button-regular);
+  --hero-button-tertiary-text-color-hover: var(--color-button-hover);
+  --hero-button-tertiary-text-color-active: var(--color-button-pressed);
+
+}

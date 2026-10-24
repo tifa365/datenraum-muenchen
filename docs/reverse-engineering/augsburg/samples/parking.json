@@ -1,0 +1,66 @@
+{
+  "updatedAt": "2026-10-24T16:47:28.980Z",
+  "count": 15,
+  "results": [
+    {
+      "id": "102213",
+      "name": "Annahof",
+      "type": "parkingGarage",
+      "lat": 48.367906,
+      "lon": 10.893996,
+      "state": "ok",
+      "total": 110,
+      "occupied": 96,
+      "free": 14,
+      "timestamp": "2026-10-24T16:47:15.000Z"
+    },
+    {
+      "id": "102230",
+      "name": "Augusta",
+      "type": "parkingGarage",
+      "lat": 48.370828,
+      "lon": 10.894843,
+      "state": "error",
+      "total": 70,
+      "occupied": 63,
+      "free": 7,
+      "timestamp": "2026-10-24T16:47:28.980Z"
+    },
+    {
+      "id": "102232",
+      "name": "Bahnhof",
+      "type": "parkingGarage",
+      "lat": 48.364674,
+      "lon": 10.888655,
+      "state": "ok",
+      "total": 274,
+      "occupied": 181,
+      "free": 93,
+      "timestamp": "2026-10-24T16:47:11.000Z"
+    },
+    {
+      "id": "102234",
+      "name": "Bleigässchen",
+      "type": "parkingGarage",
+      "lat": 48.365578,
+      "lon": 10.895959,
+      "state": "ok",
+      "total": 87,
+      "occupied": 48,
+      "free": 39,
+      "timestamp": "2026-10-24T16:47:10.000Z"
+    },
+    {
+      "id": "102236",
+      "name": "Bohus-Center",
+      "type": "parkingGarage",
+      "lat": 48.364437,
+      "lon": 10.888634,
+      "state": "ok",
+      "total": 240,
+      "occupied": 176,
+      "free": 64,
+      "timestamp": "2026-10-24T16:47:11.000Z"
+    }
+  ]
+}

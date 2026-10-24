@@ -1,0 +1,19 @@
+{
+  "sites": [
+    {
+      "Location": "Annastraße"
+    },
+    {
+      "Location": "Annastraße 15"
+    },
+    {
+      "Location": "Bahnhofstraße"
+    },
+    {
+      "Location": "Bürgermeister-Fischer-Straße"
+    },
+    {
+      "Location": "Judenberg"
+    }
+  ]
+}

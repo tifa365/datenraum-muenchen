@@ -1,0 +1,48 @@
+﻿HstNummer;Name ohne Ort;Ort;Globale ID;WGS84 X;WGS84 Y
+1;Karlsplatz (Stachus);München;de:09162:1;48,1393673;11,565396
+2;Marienplatz;München;de:09162:2;48,1364359;11,577658
+3;Isartor;München;de:09162:3;48,1338939;11,5828233
+4;Rosenheimer Platz;München;de:09162:4;48,1285878;11,5938996
+5;Ostbahnhof;München;de:09162:5;48,1281381;11,6040685
+6;Hauptbahnhof (S, U, Bus, Tram);München;de:09162:6;48,1403145;11,56112
+7;Hackerbrücke;München;de:09162:7;48,1435394;11,5487772
+8;Donnersbergerbrücke;München;de:09162:8;48,1426763;11,5346197
+9;Laim;München;de:09162:9;48,1431258;11,5031877
+10;Pasing;München;de:09162:10;48,148832;11,4606435
+11;Leonrodplatz;München;de:09162:11;48,1594635;11,5474297
+12;Hochschule München (Lothstr.);München;de:09162:12;48,1542679;11,5538347
+13;Sandstraße;München;de:09162:13;48,1505821;11,5581107
+14;Karlspl.(Stachus) Nord;München;de:09162:14;48,1398589;11,5647223
+15;Karlstraße;München;de:09162:15;48,1447802;11,5596378
+16;Lenbachplatz;München;de:09162:16;48,140878;11,5685042
+17;Nationaltheater;München;de:09162:17;48,1393613;11,5786462
+18;Kammerspiele;München;de:09162:18;48,1385221;11,5830749
+19;Maxmonument;München;de:09162:19;48,1375509;11,5880964
+20;Marienplatz (Theatinerstraße);München;de:09162:20;48,1394872;11,5753134
+21;Maximilianeum;München;de:09162:21;48,1360702;11,5959657
+22;Flurstraße;München;de:09162:22;48,1356265;11,6048051
+23;Grillparzerstraße;München;de:09162:23;48,136316;11,609144
+25;Alter Messeplatz;München;de:09162:25;48,1345534;11,5462888
+26;Isartor/Zweibrückenstraße;München;de:09162:26;48,1327728;11,5836049
+27;Ridlerstraße;München;de:09162:27;48,1306684;11,5392461
+28;Rindermarkt;München;de:09162:28;48,1358903;11,5740288
+29;Landshuter Allee;München;de:09162:29;48,1517148;11,5369464
+30;Poccistraße;München;de:09162:30;48,1250861;11,5496216
+31;Hirschgarten;München;de:09162:31;48,1435215;11,5194831
+32;Hochschule München;München;de:09162:32;48,1553945;11,5532957
+34;Nordbad;München;de:09162:34;48,1609256;11,5634107
+35;Görresstraße;München;de:09162:35;48,1559818;11,562207
+36;Georgenstraße;München;de:09162:36;48,1551608;11,5834611
+38;Müllerstraße;München;de:09162:38;48,1313699;11,5715225
+40;Goetheplatz;München;de:09162:40;48,1295472;11,5584161
+41;Eduard-Schmid-Straße;München;de:09162:41;48,1262674;11,5784306
+42;Mariahilfplatz;München;de:09162:42;48,1243546;11,5810806
+43;Kurfürstenplatz;München;de:09162:43;48,1603383;11,574981
+44;Winzererstraße;München;de:09162:44;48,1576957;11,560078
+460;Garching, Forschungszentrum;Garching (b München);de:09184:460;48,2648614;11,6712265
+480;Garching-Hochbrück;Garching (b München);de:09184:480;48,2472294;11,6308293
+490;Garching;Garching (b München);de:09184:490;48,2494188;11,6525056
+799;Riem (S) Dornach;Dornach (b München);de:09184:799;48,1446543;11,681117
+1671;Ernst-Mach-Gymnasium;Haar (b München);de:09184:1671;48,1079098;11,7235354
+1049;Maximilian-Kolbe-Allee;München;de:09162:1049;;
+1613;Am Knie Süd;München;de:09162:1613;;

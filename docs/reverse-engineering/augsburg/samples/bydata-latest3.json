@@ -1,0 +1,151 @@
+{
+  "result": {
+    "index": "dataset",
+    "count": 396,
+    "sort": [
+      1789516800000,
+      2.151455,
+      "Kommunalfinanzen und Verwaltung - Hundesteuer"
+    ],
+    "results": [
+      {
+        "modified": "2026-09-24",
+        "index": "dataset",
+        "id": "http-informationsportal-augsburg-de-opendataaugsburg-dataset-de-by-augsburg-bevoelkerung_-_geburten",
+        "title": {
+          "de": "Bevölkerung - Geburten"
+        },
+        "resource": "https://open.bydata.de/api/hub/repo/datasets/http-informationsportal-augsburg-de-opendataaugsburg-dataset-de-by-augsburg-bevoelkerung_-_geburten"
+      },
+      {
+        "resource": "https://open.bydata.de/api/hub/repo/datasets/weltkulturerbestaetten-in-augsburg",
+        "modified": "2026-09-18",
+        "description": {
+          "de": "Name, Adresse und Koordinaten der Weltkulturerbestätten in Augsburg "
+        },
+        "index": "dataset",
+        "id": "weltkulturerbestaetten-in-augsburg",
+        "issued": "2025-05-15",
+        "title": {
+          "de": "Weltkulturerbestätten in Augsburg"
+        }
+      },
+      {
+        "modified": "2026-09-16",
+        "index": "dataset",
+        "id": "http-informationsportal-augsburg-de-opendataaugsburg-dataset-de-by-augsburg-kommunalfinanzen_und_verwaltung_-_hundesteuer",
+        "title": {
+          "de": "Kommunalfinanzen und Verwaltung - Hundesteuer"
+        },
+        "resource": "https://open.bydata.de/api/hub/repo/datasets/http-informationsportal-augsburg-de-opendataaugsburg-dataset-de-by-augsburg-kommunalfinanzen_und_verwaltung_-_hundesteuer"
+      }
+    ],
+    "facets": [
+      {
+        "id": "dataScope",
+        "title": "Data scope",
+        "items": [
+          {
+            "id": "eu",
+            "title": "European Union Data",
+            "count": 0
+          },
+          {
+            "id": "io",
+            "title": "International Data",
+            "count": 0
+          },
+          {
+            "id": "countryData",
+            "title": "National Data",
+            "count": 396
+          }
+        ]
+      },
+      {
+        "id": "is_hvd",
+        "title": "HVD",
+        "items": [
+          {
+            "count": 388,
+            "id": "false",
+            "title": "false"
+          },
+          {
+            "count": 8,
+            "id": "true",
+            "title": "true"
+          }
+        ]
+      },
+      {
+        "id": "hvd_category",
+        "title": "HVD Category",
+        "items": [
+          {
+            "count": 8,
+            "id": "c_f2b50efd",
+            "title": {
+              "ga": "Daonra",
+              "mt": "Il-popolazzjoni",
+              "lt": "Gyventojai",
+              "cs": "Populace",
+              "hr": "Stanovništvo",
+              "es": "Población",
+              "da": "Befolkning",
+              "hu": "Népesség",
+              "pt": "População",
+              "sk": "Populácia",
+              "bg": "Население",
+              "sv": "Befolkning",
+              "fr": "Population",
+              "pl": "Ludność",
+              "et": "Rahvastik",
+              "lv": "Iedzīvotāju skaits",
+              "el": "Πληθυσμός",
+              "en": "Population",
+              "sl": "Prebivalstvo",
+              "nl": "Bevolking",
+              "ro": "Populația",
+              "de": "Bevölkerung",
+              "fi": "Väestö",
+              "it": "Popolazione"
+            },
+            "parent_id": "c_e1da4e07"
+          }
+        ]
+      },
+      {
+        "id": "periodicity",
+        "title": "periodicity",
+        "items": [
+          {
+            "count": 10,
+            "id": "http://publications.europa.eu/resource/authority/frequency/ANNUAL",
+            "title": "http://publications.europa.eu/resource/authority/frequency/ANNUAL"
+          },
+          {
+            "count": 1,
+            "id": "http://publications.europa.eu/resource/authority/frequency/IRREG",
+            "title": "http://publications.europa.eu/resource/authority/frequency/IRREG"
+          },
+          {
+            "count": 1,
+            "id": "http://publications.europa.eu/resource/authority/frequency/MONTHLY",
+            "title": "http://publications.europa.eu/resource/authority/frequency/MONTHLY"
+          },
+          {
+            "count": 1,
+            "id": "http://publications.europa.eu/resource/authority/frequency/UPDATE_CONT",
+            "title": "http://publications.europa.eu/resource/authority/frequency/UPDATE_CONT"
+          }
+        ]
+      },
+      {
+        "id": "country",
+        "title": "Provenance",
+        "items": []
+      }
+    ]
+  }
+}

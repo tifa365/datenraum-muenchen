@@ -1,0 +1,309 @@
+{
+  "result": {
+    "index": "dataset",
+    "count": 396,
+    "results": [
+      {
+        "resource": "https://open.bydata.de/api/hub/repo/datasets/beschaeftigte-wichtiger-beteiligungen-nach-geschlecht",
+        "catalog": {
+          "id": "augsburg-subcatalog",
+          "catalogueInterestingDatasets": [
+            "ed572f11-0038-4694-a77d-cdbb9c8a6b54",
+            "jahresergebnis-staedtischer-beteiligungen",
+            "cada397e-3a5b-4ab5-86f7-646ef8f96028"
+          ],
+          "catalogueLogo": [
+            "https://open.bydata.de/static/catalogs/augsburg/logo.png"
+          ],
+          "issued": "2024-01-26T16:11:08Z",
+          "description": {
+            "en": "<b>Stadt Augsburg: 2000 Jahre Zukunft</b><br><br>\nSeit mehr als 2000 Jahren ist Augsburg eine \nStadt der Vordenker. Ob in der Antike, als die alten Römer aus einer Militärsiedlung die \nhochmoderne Bürgerstadt Augusta Vindelicum erschufen; oder im späten Mittelalter, als das \nvisionäre Wassersystem und die Baukunst der Renaissance-Stadt die Ingenieure aus ganz Europa \ninspirierten.<br>Und natürlich auch heute: Augsburg geht in Sachen E-Government und Smart City \nvoran und bietet Stand heute unter anderem bereits mehr als 200 Leistungen der Daseinsvorsorge \nüber Online-Services an.<br>Die beschleunigte Digitalisierung sammelt auch jede Menge Daten aus \ndem Stadtbild. Diese Zahlen und Fakten öffentlich zugänglich zu machen, ist für eine bürgernahe \nStadt eine Selbstverständlichkeit. Darum finden Sie auf diesen Seiten finden umfassende statistische \nDaten aus Augsburg und seinen Stadtbezirken, wir veröffentlichen hier die erfassten Zahlen unserer \nFahrrad-Messstationen und viele weitere Datensätze mehr.<br>Unser Angebot wird ständig \nerweitert. Für noch mehr Daten, noch mehr Offenheit und noch mehr Transparenz. Schauen Sie \ngerne bald wieder vorbei. "
+          },
+          "is_part_of": "augsburg",
+          "catalogueFavIcon": [
+            "https://open.bydata.de/static/catalogs/augsburg/favicon.png"
+          ],
+          "modified": "2024-03-01T10:49:46Z",
+          "publisher": {
+            "email": "mailto:opendata@augsburg.de",
+            "address": {
+              "locality": "Augsburg",
+              "postalCode": "86150",
+              "street": "Karolinenstr. 21"
+            },
+            "homepage": "https://www.augsburg.de/smartcity",
+            "name": "Stadt Augsburg - Geschäftsstelle Smart City",
+            "type": "http://xmlns.com/foaf/0.1/Agent"
+          },
+          "language": [
+            {
+              "id": "de",
+              "label": "German",
+              "resource": "http://publications.europa.eu/resource/authority/language/DEU"
+            }
+          ],
+          "catalogueBackground": [
+            "https://open.bydata.de/static/catalogs/augsburg/bg.jpg"
+          ],
+          "title": {
+            "de": "Stadt Augsburg"
+          },
+          "homepage": "https://www.augsburg.de/smartcity",
+          "catalogueProfile": [
+            "https://open.bydata.de/static/catalogs/augsburg/profile.jpg"
+          ]
+        },
+        "translation_meta": {
+          "details": {
+            "de": {
+              "machine_translated": false
+            }
+          },
+          "full_available_languages": [
+            "de"
+          ],
+          "status": "unknown"
+        },
+        "landing_page": [
+          {
+            "resource": "https://www.augsburg.de/buergerservice-rathaus/buergerservice/aemter-behoerden/staedt-beteiligungen"
+          }
+        ],
+        "description": {
+          "de": "Beschäftigte mehrerer Beteiligungen der Stadt Augsburg mit Geschlechtsangabe und Unternehmenshierarchie ebenfalls mit Geschlechterangabe, Anzahl der Auszubildenden "
+        },
+        "index": "dataset",
+        "language": [
+          {
+            "id": "de",
+            "label": "German",
+            "resource": "http://publications.europa.eu/resource/authority/language/DEU"
+          }
+        ],
+        "availability": {
+          "resource": "http://publications.europa.eu/resource/authority/planned-availability/AVAILABLE",
+          "label": "verfügbar"
+        },
+        "title": {
+          "de": "Augsburg Beteiligungsbericht: Beschäftigte wichtiger Beteiligungen nach Geschlecht"
+        },
+        "accrual_periodicity": {
+          "label": "annual",
+          "resource": "http://publications.europa.eu/resource/authority/frequency/ANNUAL"
+        },
+        "distributions": [
+          {
+            "id": "ba02890d-62d4-450f-9521-75a508bfe1a6",
+            "license_attribution_by_text": {
+              "de": "Stadt Augsburg"
+            },
+            "format": {
+              "id": "CSV",
+              "label": "CSV",
+              "resource": "http://publications.europa.eu/resource/authority/file-type/CSV"
+            },
+            "access_url": [
+              "https://www.augsburg.de/fileadmin/user_upload/buergerservice_rathaus/Smart_City/opendata/Besch%C3%A4ftigte_wichtiger_Beteiligungen_nach_Geschlecht.csv"
+            ],
+            "description": {
+              "de": "Beschäftigte mehrerer Beteiligungen der Stadt Augsburg mit Geschlechtsangabe und Unternehmenshierarchie ebenfalls mit Geschlechterangabe, Anzahl der Auszubildenden\n"
+            },
+            "modified": "2023-09-22",
+            "language": [
+              {
+                "id": "de",
+                "label": "German",
+                "resource": "http://publications.europa.eu/resource/authority/language/DEU"
+              }
+            ],
+            "issued": "2023-09-22",
+            "title": {
+              "de": "Städtische Beteiligungen: Beschäftigte wichtiger Beteiligungen nach Geschlecht"
+            },
+            "license": {
+              "resource": "http://dcat-ap.de/def/licenses/cc-by-de/3.0",
+              "description": "Creative Commons Namensnennung 3.0 Deutschland (CC BY 3.0 DE)",
+              "label": "Creative Commons Namensnennung 3.0 Deutschland (CC BY 3.0 DE)",
+              "homepage": "https://creativecommons.org/licenses/by/3.0/de/"
+            }
+          }
+        ],
+        "open_data_presence": [
+          {
+            "id": "augsburg.bydata",
+            "label": "augsburg.bydata"
+          }
+        ],
+        "is_hvd": false,
+        "quality_meas": null,
+        "modified": "2025-04-01",
+        "publisher": {
+          "type": "http://xmlns.com/foaf/0.1/Agent",
+          "name": "Stadt Augsburg Zentrales Beteiligungsmanagement",
+          "email": "mailto:opendata@augsburg.de",
+          "homepage": "https://www.augsburg.de/buergerservice-rathaus/buergerservice/aemter-behoerden/staedtische-dienststellen/z/zentrales-beteiligungsmanagement/"
+        },
+        "id": "beschaeftigte-wichtiger-beteiligungen-nach-geschlecht",
+        "categories": [
+          {
+            "id": "ECON",
+            "label": {
+              "et": "Majandus ja rahandus",
+              "sk": "Hospodárstvo a financie",
+              "en": "Economy and finance",
+              "el": "Οικονομία και χρηματοοικονομικά θέματα",
+              "mt": "Ekonomija u finanzi",
+              "hr": "Ekonomija i financije",
+              "fi": "Talous ja raha-asiat",
+              "bg": "Икономика и финанси",
+              "sv": "Ekonomi och finans",
+              "sl": "Gospodarstvo in finance",
+              "no": "Økonomi og finans",
+              "pt": "Economia e finanças",
+              "it": "Economia e finanze",
+              "ga": "Geilleagar agus airgeadas",
+              "da": "Økonomi og finanser",
+              "lv": "Ekonomika un finanses",
+              "nl": "Economie en financiën",
+              "nb": "Økonomi og finans",
+              "nn": "Økonomi og finans",
+              "lt": "Ekonomika ir finansai",
+              "hu": "Gazdaság és pénzügy",
+              "de": "Wirtschaft und Finanzen",
+              "fr": "Économie et finances",
+              "ro": "Economie şi finanţe",
+              "es": "Economía y finanzas",
+              "pl": "Gospodarka i finanse",
+              "cs": "Hospodářství a finance"
+            },
+            "resource": "http://publications.europa.eu/resource/authority/data-theme/ECON"
+          },
+          {
+            "id": "REGI",
+            "label": {
+              "nn": "Regionar og byar",
+              "da": "Regioner og byer",
+              "lv": "Reģioni un pilsētas",
+              "nb": "Regioner og byer",
+              "pt": "Regiões e cidades",
+              "lt": "Regionai ir miestai",
+              "ro": "Regiuni şi orașe",
+              "de": "Regionen und Städte",
+              "el": "Περιφέρειες και πόλεις",
+              "fr": "Régions et villes",
+              "en": "Regions and cities",
+              "nl": "Regio's en steden",
+              "hr": "Regije i gradovi",
+              "sl": "Regije in mesta",
+              "no": "Regioner og byer",
+              "pl": "Regiony i miasta",
+              "et": "Piirkonnad ja linnad",
+              "fi": "Alueet ja kaupungit",
+              "ga": "Réigiúin agus cathracha",
+              "cs": "Regiony a města",
+              "sk": "Regióny a mestá",
+              "it": "Regioni e città",
+              "mt": "Reġjuni u bliet",
+              "bg": "Региони и градове",
+              "hu": "Régiók és városok",
+              "sv": "Regioner och städer",
+              "es": "Regiones y ciudades"
+            },
+            "resource": "http://publications.europa.eu/resource/authority/data-theme/REGI"
+          },
+          {
+            "id": "SOCI",
+            "label": {
+              "es": "Población y sociedad",
+              "sl": "Prebivalstvo in družba",
+              "nn": "Befolkning og samfunn",
+              "da": "Befolkning og samfund",
+              "bg": "Население и общество",
+              "nb": "Befolkning og samfunn",
+              "ro": "Populaţie şi societate",
+              "pt": "População e sociedade",
+              "mt": "Popolazzjoni u soċjetà",
+              "fi": "Väestö ja yhteiskunta",
+              "nl": "Bevolking en samenleving",
+              "lt": "Gyventojų skaičius ir visuomenė",
+              "en": "Population and society",
+              "cs": "Populace a společnost",
+              "sv": "Befolkning och samhälle",
+              "hu": "Népesség és társadalom",
+              "sk": "Obyvateľstvo a spoločnosť",
+              "fr": "Population et société",
+              "ga": "Daonra agus sochaí",
+              "hr": "Stanovništvo i društvo",
+              "pl": "Ludność i społeczeństwo",
+              "no": "Befolkning og samfunn",
+              "de": "Bevölkerung und Gesellschaft",
+              "et": "Elanikkond ja ühiskond",
+              "el": "Πληθυσμός και κοινωνία",
+              "it": "Popolazione e società",
+              "lv": "Iedzīvotāji un sabiedrība"
+            },
+            "resource": "http://publications.europa.eu/resource/authority/data-theme/SOCI"
+          },
+          {
+            "id": "GOVE",
+            "label": {
+              "fr": "Gouvernement et secteur public",
+              "mt": "Gvern u settur pubbliku",
+              "fi": "Valtioneuvosto ja julkinen sektori",
+              "bg": "Правителство и публичен сектор",
+              "nb": "Forvaltning og offentlig sektor",
+              "da": "Regeringen og den offentlige sektor",
+              "sv": "Regeringen och den offentliga sektorn",
+              "ro": "Guvern şi sector public",
+              "en": "Government and public sector",
+              "it": "Governo e settore pubblico",
+              "cs": "Vláda a veřejný sektor",
+              "sl": "Vlada in javni sektor",
+              "hu": "Kormányzat és közszféra",
+              "de": "Regierung und öffentlicher Sektor",
+              "sk": "Vláda a verejný sektor",
+              "pt": "Governo e setor público",
+              "nl": "Overheid en publieke sector",
+              "no": "Forvaltning og offentlig sektor",
+              "nn": "Forvaltning og offentleg sektor",
+              "ga": "Rialtas agus earnáil phoiblí",
+              "hr": "Vlada i javni sektor",
+              "lt": "Vyriausybė ir viešasis sektorius",
+              "pl": "Rząd i sektor publiczny",
+              "el": "Κυβέρνηση και δημόσιος τομέας",
+              "et": "Valitsus ja avalik sektor",
+              "es": "Gobierno y sector público",
+              "lv": "Valdība un sabiedriskais sektors"
+            },
+            "resource": "http://publications.europa.eu/resource/authority/data-theme/GOVE"
+          }
+        ],
+        "issued": "2023-09-21",
+        "temporal": [
+          {
+            "gte": "2015-01-01T00:00:00Z",
+            "lte": "2020-12-31T00:00:00Z"
+          }
+        ],
+        "catalog_record": {
+          "issued": "2024-01-29T14:45:54Z",
+          "modified": "2025-04-01T11:10:17Z"
+        },
+        "contact_point": [
+          {
+            "type": "Organization",
+            "url": [
+              "https://www.augsburg.de/buergerservice-rathaus/buergerservice/aemter-behoerden/staedt-beteiligungen"
+            ],
+            "name": "Zentrales Beteiligungsmanagement",
+            "telephone": "+49-821/324-3317",
+            "email": "mailto:beteiligungsmanagement@augsburg.de",
+            "organisation_name": "Stadt Augsburg",
+            "address": "Augsburg"
+          }
+        ]
+      }
+    ],
+    "facets": []
+  }
+}

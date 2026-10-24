@@ -1,0 +1,30 @@
+/*
+ * This file is part of Civora UI.
+ *
+ * Copyright (C) 2025 DKSR GmbH.
+ *
+ * Civora UI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+:root {
+
+  --civora-admin-cockpit-icon: /src/assets/icons/admin-cockpit.svg;
+
+  --realm-management-icon: /src/assets/icons/realm-verwaltung.svg;
+  --user-management-icon: /src/assets/icons/management.svg;
+  --civora-alerts-icon: /src/assets/icons/alert.svg;
+  --civora-connectors-icon: /src/assets/icons/connectors.svg;
+  --civora-airflow-icon: /src/assets/icons/airflow.svg;
+  --civora-matomo-icon: /src/assets/icons/data-preview.svg;
+  --civora-thingsboard-icon: /src/assets/icons/satellite.svg;
+
+}

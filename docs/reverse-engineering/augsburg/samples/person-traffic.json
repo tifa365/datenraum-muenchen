@@ -1,0 +1,61 @@
+{
+  "period": "7d",
+  "bucket": "hour",
+  "updatedUntil": "2026-10-23",
+  "lastTimestamp": "2026-10-23T21:45:00.000Z",
+  "current": {
+    "from": "2026-10-17",
+    "to": "2026-10-23",
+    "count": 720364
+  },
+  "previous": {
+    "from": "2026-10-10",
+    "to": "2026-10-16",
+    "count": 770349
+  },
+  "changePercent": -6.5,
+  "chart": [
+    {
+      "bucket": "2026-10-16T22:00:00.000Z",
+      "count": 1818
+    },
+    {
+      "bucket": "2026-10-16T23:00:00.000Z",
+      "count": 971
+    },
+    {
+      "bucket": "2026-10-17T00:00:00.000Z",
+      "count": 518
+    },
+    {
+      "bucket": "2026-10-17T01:00:00.000Z",
+      "count": 436
+    },
+    {
+      "bucket": "2026-10-17T02:00:00.000Z",
+      "count": 202
+    }
+  ],
+  "sites": [
+    {
+      "name": "Annastraße",
+      "count": 122864
+    },
+    {
+      "name": "Annastraße 15",
+      "count": 93151
+    },
+    {
+      "name": "Bahnhofstraße",
+      "count": 152928
+    },
+    {
+      "name": "Bürgermeister-Fischer-Straße",
+      "count": 138526
+    },
+    {
+      "name": "Judenberg",
+      "count": 72444
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Aktuell mitmachen",
+  "source": "machmit.augsburg.de",
+  "count": 3,
+  "totalRunningCount": 12,
+  "projects": [
+    {
+      "id": 395,
+      "title": "Abpflastern",
+      "subtitle": "Machen Sie mit beim bundesweiten Wettbewerb!",
+      "url": "https://machmit.augsburg.de/abpflastern",
+      "image": "https://machmit.augsburg.de/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcXNVIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--7ac9b9a9dd565d9edbabbe1809c393d47bf6cf24/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFKWUFqQTZDbk4wY21sd1ZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--2a4bca2dfed088ed074b33985a00ad635422217d/Abpflastern_Machmit_iStockphotoZbynek%20Pospisil.jpg",
+      "startDate": "2026-03-21",
+      "endDate": "2026-10-31",
+      "daysLeft": 7
+    },
+    {
+      "id": 409,
+      "title": "Stadtbücherei: Gemeinsam die nächsten Kapitel gestalten",
+      "subtitle": "Nehmen Sie an der Befragung teil!",
+      "url": "https://machmit.augsburg.de/bibliotheksentwicklungsplan",
+      "image": "https://machmit.augsburg.de/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaE1oIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3d0fed6f62802d98fdc367477e0e98a8fe6b390f/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFKWUFqQTZDbk4wY21sd1ZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--2a4bca2dfed088ed074b33985a00ad635422217d/260903_Visual-der-Stadtbuecherei-v01.jpg",
+      "startDate": "2026-10-13",
+      "endDate": "2026-11-10",
+      "daysLeft": 17
+    },
+    {
+      "id": 411,
+      "title": "Was bewegt Alleinerziehende in Augsburg?",
+      "subtitle": "Bringen Sie Ihre Perspektive ein!",
+      "url": "https://machmit.augsburg.de/alleinerziehende",
+      "image": "https://machmit.augsburg.de/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbk1pIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ee14ca5700daf4bbc8001e73cf05648ff9e0a4ac/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFKWUFqQTZDbk4wY21sd1ZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--2a4bca2dfed088ed074b33985a00ad635422217d/260918_Aktionsmonat-Alleinerziehende-2026-Headerbild-v01.jpg",
+      "startDate": "2026-10-15",
+      "endDate": "2026-12-15",
+      "daysLeft": 52
+    }
+  ],
+  "fetchedAt": "2026-10-24T16:46:54.589Z",
+  "cacheSeconds": 600
+}

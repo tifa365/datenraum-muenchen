@@ -1,0 +1,61 @@
+{
+  "data": {
+    "city_slug": "muenchen",
+    "geo": null,
+    "observed_at": null,
+    "retrieved_at": "2026-10-24T17:06:34.600706Z",
+    "source": "muenchen_parking",
+    "license_id": "dl_de_by_2_0",
+    "license_tier": "A",
+    "schema_version": 1,
+    "ags": "09162000",
+    "wikidata_qid": "Q1726",
+    "attribution": {
+      "text": "Landeshauptstadt München",
+      "license_url": "https://www.govdata.de/dl-de/by-2-0",
+      "modified": false
+    },
+    "payload": {
+      "kind": "parking",
+      "facilities": [
+        {
+          "name": "Tiefgarage P&R Fürstenried",
+          "address": "Neurieder Str. 40",
+          "lat": 48.087114,
+          "lon": 11.4847368
+        },
+        {
+          "name": "Parkhaus Audi Dome",
+          "address": "Siegenburger Str. 65",
+          "lat": 48.12738543,
+          "lon": 11.52276568
+        },
+        {
+          "name": "Parkhaus Laimer Platz",
+          "address": "Fürstenrieder Str. 62",
+          "lat": 48.13591,
+          "lon": 11.5026
+        },
+        {
+          "name": "Tiefgarage P&R Heimeranplatz",
+          "address": "Garmischer Str. 19",
+          "lat": 48.1314008,
+          "lon": 11.5309121
+        },
+        {
+          "name": "West 4",
+          "address": "Elsenheimerstr. 57",
+          "lat": 48.13744,
+          "lon": 11.52306
+        }
+      ]
+    },
+    "content_hash": "32c34f10115928631fafaf462dfd7ede0d395c632367cd40a8dce553adfc2572",
+    "record_id": "a1338c2e2fe17d91725f46e0d1df4438d88b564e2669e47e60600affe5b134a9"
+  },
+  "meta": {
+    "correlation_id": "4827a7aab1574451b4ad089091ac73a0",
+    "source_status": "ok",
+    "cache_status": "HIT"
+  }
+}

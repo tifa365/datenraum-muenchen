@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart City Dashboard München</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script>window.__ENV__ = { API_BASE_URL: '/public' }</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script type="module" src="/dashboard.js"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="grid">
+      <div class="tile large" style="--span:5;--span-lg:5;--span-md:5;--span-sm:12"><city-info-widget></city-info-widget></div>
+      <div class="tile large" style="--span:7;--span-lg:7;--span-md:7;--span-sm:12"><transport-widget></transport-widget></div>
+      <div class="tile large" style="--span:4;--span-lg:5;--span-md:5;--span-sm:12"><parking-widget></parking-widget></div>
+      <div class="tile large" style="--span:8;--span-lg:7;--span-md:7;--span-sm:12"><bike-widget></bike-widget></div>
+      <div class="tile large" style="--span:9;--span-lg:8;--span-md:12;--span-sm:12"><person-widget></person-widget></div>
+      <div class="tile small" style="--span:3;--span-lg:4;--span-md:6;--span-sm:6"><open-data-widget></open-data-widget></div>
+      <div class="tile small" style="--span:3;--span-lg:4;--span-md:6;--span-sm:6"><machmit-widget></machmit-widget></div>
+    </section>
+
+    <section class="cta" aria-label="Weitere Informationen zum Dashboard">
+      <p class="disclaimer">
+        Die Daten dieses Dashboards kommen zum Teil automatisiert aus Echtzeit- und Fremdquellen.
+        Sie werden nicht einzeln geprüft; Fehler, Lücken und spätere Korrekturen sind möglich.
+        Eine Gewähr für Richtigkeit und Vollständigkeit wird nicht übernommen.
+      </p>
+      <div class="ctx">
+        <div><span class="kicker">Dashboard</span><h2>Smart City München</h2></div>
+        <a class="button" href="https://muenchen.digital" target="_blank" rel="noopener noreferrer">Mehr über Smart City München <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "period": "7d",
+  "bucket": "hour",
+  "updatedUntil": "2026-10-23",
+  "lastTimestamp": "2026-10-23T21:45:00.000Z",
+  "current": {
+    "from": "2026-10-17",
+    "to": "2026-10-23",
+    "count": 122864
+  },
+  "previous": {
+    "from": "2026-10-10",
+    "to": "2026-10-16",
+    "count": 128259
+  },
+  "changePercent": -4.2,
+  "chart": [
+    {
+      "bucket": "2026-10-16T22:00:00.000Z",
+      "count": 146
+    },
+    {
+      "bucket": "2026-10-16T23:00:00.000Z",
+      "count": 85
+    },
+    {
+      "bucket": "2026-10-17T00:00:00.000Z",
+      "count": 34
+    },
+    {
+      "bucket": "2026-10-17T01:00:00.000Z",
+      "count": 62
+    },
+    {
+      "bucket": "2026-10-17T02:00:00.000Z",
+      "count": 14
+    }
+  ],
+  "sites": [
+    {
+      "name": "Annastraße",
+      "count": 122864
+    }
+  ]
+}

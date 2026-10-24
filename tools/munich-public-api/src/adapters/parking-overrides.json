@@ -1,0 +1,14 @@
+{
+  "_comment": "Manual corrections applied after importing the Munich parking facility list (infranode.dev, upstream opendata.muenchen.de 'Parkhäuser München', last refreshed 2026-02). Key = facility name exactly as delivered by the source. Only listed fields are replaced; 'total' adds a capacity the source lacks. Every entry must cite its evidence.",
+  "Parkgarage am Salvatorplatz": {
+    "address": "Jungfernturmstr. 1",
+    "lat": 48.1420916615,
+    "lon": 11.5739753267,
+    "total": 452,
+    "_evidence": [
+      "Reported wrong upstream by ITM-SLP41, 2026-07-15 (upstream had Salvatorplatz 3 at 48.142269/11.57519, ~90 m east of the garage).",
+      "https://data.parkraumwende.de/?eintrag=253#karte (parkraummap.csv ID 253: Jungfernturmstrasse 1, 452 Plätze, 48.1420916615/11.5739753267, verified=Ja), checked 2026-10-24.",
+      "https://de.wikipedia.org/wiki/Salvatorgarage (ca. 465 Stellplätze, 48.141863/11.574236), consistent."
+    ]
+  }
+}

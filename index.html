@@ -1,0 +1,45 @@
+<!--
+  ~ This file is part of Civora UI.
+  ~
+  ~ Copyright (C) 2025 DKSR GmbH.
+  ~
+  ~ Civora UI is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, version 3.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- DO NOT CHANGE /favicon.png unless u adapt runtimeconfig.sh-->
+    <link rel="icon" href="/favicon.png" sizes="any">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="mask-icon" href="/favicon.png">
+    <link rel="stylesheet" href="/src/assets/stylesheets/style.css">
+    <link rel="stylesheet" href="/src/assets/stylesheets/components.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="$VITE_APP_OG_TITLE">
+    <meta property="og:description" content="$VITE_APP_OG_DESCRIPTION">
+    <meta property="og:image" content="$VITE_APP_OG_IMAGE">
+    <meta property="og:type" content="website">
+    <base href="/" />
+    <script type="text/javascript">
+      window.tarteaucitronForceCDN = ''
+    </script>
+    <script src="/tarteaucitron/tarteaucitron.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

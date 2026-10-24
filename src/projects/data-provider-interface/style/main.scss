@@ -1,0 +1,37 @@
+// This file is part of Civora UI.
+//
+// Copyright (C) 2025 DKSR GmbH.
+//
+// Civora UI is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+@import './custom_theme';
+
+@import './bootstrap-theme.scss';
+
+// @import '../../../../node_modules/@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
+
+// @import './dpi-style.scss';
+// @import '../../../../node_modules/@piveau/piveau-hub-ui-modules/dist/scss/main.scss';
+@import '../../../../node_modules/@piveau/piveau-hub-ui-modules/dist/scss/dpi-style';
+
+
+.circle {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  padding: 20px 0;
+  font-size: 12px;
+  line-height: 1px;
+  border-radius: 50%;
+  background-color: #595959;
+}

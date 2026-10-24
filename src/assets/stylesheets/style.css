@@ -1,0 +1,267 @@
+/*
+ * This file is part of Civora UI.
+ *
+ * Copyright (C) 2025 DKSR GmbH.
+ *
+ * Civora UI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+@import url('./icons.css');
+
+:root {
+
+    --font-family: 'Sofia Sans';
+    --font-family-secondary: 'Inter';
+
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    --header-title-transform: none;
+
+    --color-neutral-700: #002d3d;
+    --color-neutral-600: #2a4450;
+    --color-neutral-500: #66828a;
+    --color-neutral-400: #99aeb7;
+    --color-neutral-300: #d9e1e7;
+    --color-neutral-200: #f5f7fa;
+    --color-neutral-100: #ffffff;
+
+    --color-primary-900: #001f2a;
+    --color-primary-800: #00435b;
+    --color-primary-700: #004652;
+    --color-primary-600: #00597a;
+    --color-primary-500: #00687a;
+    --color-primary-400: #9fc4ca;
+    --color-primary-300: #d0e0e3;
+    --color-primary-200: #deeaed;
+
+    --color-secondary-700: #feea5b;
+    --color-secondary-600: #fbee91;
+    --color-secondary-500: #f8f1bf;
+    --color-secondary-400: #f6f3de;
+
+    --color-success-700: #0c9d61;
+    --color-success-600: #47b881;
+    --color-success-500: #97d4b4;
+    --color-success-400: #e5f5ec;
+
+    --color-info-700: #3a70e2;
+    --color-info-600: #3b82f6;
+    --color-info-500: #93c8ff;
+    --color-info-400: #e4f2ff;
+
+    --color-warning-700: #fe9b0e;
+    --color-warning-600: #ffad0d;
+    --color-warning-500: #ffdd82;
+    --color-warning-400: #fff7e1;
+
+    --color-promote-700: #5824D4; 
+    --color-promote-600: #8e24aa;
+    --color-promote-500: #A967F8;
+    --color-promote-400: #F5EBFE;
+
+    --color-danger-700: #ec2d30;
+    --color-danger-600: #f64c4c;
+    --color-danger-500: #f49898;
+    --color-danger-400: #ffebee;
+
+    --color-dksr-dark-blue: #0e4194;
+    --color-dksr-blue: #0e8cc0;
+    --color-dksr-light-blue: #1ebbee;
+    --color-dksr-yellow: #f9eb1d;
+
+    --color-accent-raspberry: #e72371;
+    --color-accent-woodruff: #33c7a4;
+    --color-accent-secondary: #feea5b;
+
+    --color-text-regular: var(--color-neutral-700);
+    --color-text-light: var(--color-primary-800);
+    --color-text-muted: var(--color-primary-600);
+    --color-text-dark: var(--color-primary-900);
+
+    --color-bg-white: var(--color-neutral-100);
+    --color-bg-white-hover: var(--color-neutral-200);
+    --color-bg-darker: var(--color-neutral-200);
+    --color-bg-dark: var(--color-neutral-300);
+    --color-bg-hover: var(--color-neutral-200);
+    --color-bg-disabled: var(--color-neutral-200);
+    --color-divider: var(--color-neutral-300);
+    --color-border: var(--color-neutral-300);
+    --color-icons: var(--color-neutral-500);
+
+    --color-button-regular: var(--color-primary-500);
+    --color-button-hover: var(--color-primary-600);
+    --color-button-pressed: var(--color-primary-700);
+    --color-button-text: var(--color-neutral-100);
+
+    --display-lg-font-size: 57px;
+    --display-md-font-size: 45px;
+    --display-sm-font-size: 36px;
+
+    --headline-lg-font-size: 32px;
+    --headline-md-font-size: 28px;
+    --headline-sm-font-size: 24px;
+
+    --title-lg-font-size: 22px;
+    --title-md-font-size: 16px;
+    --title-sm-font-size: 14px;
+
+    --body-xl-font-size: 22px;
+    --body-lg-font-size: 16px;
+    --body-md-font-size: 14px;
+    --body-sm-font-size: 12px;
+
+    --label-lg-font-size: 16px;
+    --label-md-font-size: 12px;
+    --label-sm-font-size: 11px;
+}
+
+.display-lg {
+    font-family: var(--font-family), serif;
+    font-size: var(--display-lg-font-size);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 74px; /* 129.825% */
+    letter-spacing: -0.25px;
+}
+
+.display-md {
+    font-family: var(--font-family), serif;
+    font-size: var(--display-md-font-size);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 52px; /* 115.556% */
+}
+
+.display-sm {
+    font-family: var(--font-family), serif;
+    font-size: var(--display-sm-font-size);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 44px; /* 122.222% */
+}
+
+.headline-lg {
+    font-family: var(--font-family), serif;
+    font-size: var(--headline-lg-font-size);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 125% */
+}
+
+.headline-md {
+    font-family: var(--font-family), serif;
+    font-size: var(--headline-md-font-size);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 36px; /* 128.571% */
+}
+
+.headline-sm {
+    font-family: var(--font-family), serif;
+    font-size: var(--headline-sm-font-size);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 133.333% */
+}
+
+.title-lg {
+    font-family: var(--font-family), serif;
+    font-size: var(--title-lg-font-size);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px; /* 145.455% */
+}
+
+.title-md {
+    font-family: var(--font-family), serif;
+    font-size: var(--title-md-font-size);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.15px;
+}
+
+.title-sm {
+    font-family: var(--font-family), serif;
+    font-size: var(--title-sm-font-size);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.1px;
+}
+
+.body-xl {
+    font-family: var(--font-family), serif;
+    font-size: var(--body-xl-font-size);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0.5px;
+}
+
+.body-lg {
+    font-family: var(--font-family), serif;
+    font-size: var(--body-lg-font-size);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.5px;
+}
+
+.body-md {
+    font-family: var(--font-family), serif;
+    font-size: var(--body-md-font-size);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.25px;
+}
+
+.body-sm {
+    font-family: var(--font-family), serif;
+    font-size: var(--body-sm-font-size);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.4px;
+}
+
+.label-lg {
+    font-family: var(--font-family), serif;
+    font-size: var(--label-lg-font-size);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 125% */
+    letter-spacing: 0.1px;
+}
+
+.label-md {
+    font-family: var(--font-family), serif;
+    font-size: var(--label-md-font-size);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.5px;
+}
+
+.label-sm {
+    font-family: var(--font-family), serif;
+    font-size: var(--label-sm-font-size);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: 0.5px;
+}

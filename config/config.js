@@ -1,0 +1,337 @@
+/*
+ * This file is part of Civora UI.
+ *
+ * Copyright (C) 2025 DKSR GmbH.
+ *
+ * Civora UI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+export default {
+  appUrl: '$VITE_API_BASE_URL',
+  appVersion: '$VITE_APP_VERSION',
+  keycloakUrl: '$VITE_AUTHENTICATION_KEYCLOAK_URL',
+  keycloakRealm: '$VITE_AUTHENTICATION_KEYCLOAK_REALM',
+  keycloakClientId: '$VITE_AUTHENTICATION_KEYCLOAK_CLIENT_ID',
+  keycloakPiveauClientId: '$VITE_PIVEAU_KEYCLOAK_CLIENT_ID',
+  keycloakOptions: {
+    checkSso: '$VITE_KEYCLOAK_OPTIONS_CHECK_SSO',
+    checkLoginIframe: '$VITE_KEYCLOAK_OPTIONS_CHECK_LOGIN_IFRAME',
+    timeout: '$VITE_KEYCLOAK_OPTIONS_TIMEOUT',
+  },
+  supersetUrl: '$VITE_SUPERSET_URL',
+  piveauHubSearchUrl: '$VITE_API_HUB_SEARCH_URL',
+  piveauHubRepoUrl: '$VITE_API_HUB_REPO_URL',
+  piveauHubStoreUrl: '$VITE_API_HUB_STORE_URL',
+  piveauDisableDataUpload: '$VITE_HUB_DISABLE_DATA_UPLOAD',
+  metricsUrl: '$VITE_METRICS_URL',
+  metricsCacheUrl: '$VITE_METRICS_CACHE_URL',
+  rawDataSearchUrl: '$VITE_API_RAW_DATA_SEARCH_URL',
+  middlewareUrl: '$VITE_API_MIDDLEWARE_URL',
+  trackingEmbedCode: '$VITE_TRACKING_EMBED_CODE',
+  trackingCookiePrefixes: '$VITE_TRACKING_COOKIE_PREFIXES',
+  piveauSparqlUrl: '$VITE_API_SPARQL_URL',
+  piveauPreviewUrl: '$VITE_API_PREVIEW_URL',
+  digitalTwinUrl: '$VITE_DIGITAL_TWIN_URL',
+  digitalTwinUrlAuthenticated: '$VITE_DIGITAL_TWIN_URL_AUTHENTICATED',
+  civoraDpiUrl: '$VITE_CIVORA_DPI_URL',
+  connectorsUrl: '$VITE_CONNECTORS_URL',
+  alertsUrl: '$VITE_ALERTS_URL',
+  airflowUrl: '$VITE_AIRFLOW_URL',
+  thingsboardUrl: '$VITE_THINGSBOARD_URL',
+  matomoUrl: '$VITE_MATOMO_URL',
+  modelCoordinatorUrl: '$VITE_MODEL_COORDINATOR_URL',
+  customer: {
+    name: '$VITE_CUSTOMER_NAME',
+    landingPagePublic: '$VITE_CUSTOMER_LANDING_PAGE_PUBLIC',
+    enableDataSetLevelAccessControl: '$VITE_PIVEAU_ENABLE_DATASET_LEVEL_ACCESS_CONTROL',
+    enableCatalogueManagement: '$VITE_PIVEAU_ENABLE_CATALOGUE_MANAGEMENT',
+    requiresLogin: '$VITE_CUSTOMER_REQUIRES_LOGIN',
+    appTitle: '$VITE_CUSTOMER_APP_TITLE',
+    faviconFileName: '$VITE_CUSTOMER_FAVICON_FILE_NAME',
+    entryPoint: '$VITE_CUSTOMER_ENTRYPOINT',
+    useNewCivoraUi: '$VITE_CUSTOMER_USE_NEW_CIVORA_UI',
+    loginUrl: '$VITE_CUSTOMER_LOGIN_URL',
+    isDataNoticesDisabled: '$VITE_CUSTOMER_IS_DATA_NOTICES_DISABLED',
+    isDashboardSearchEnabled: '$VITE_CUSTOMER_IS_DASHBOARD_SEARCH_ENABLED',
+    infoPages: '$VITE_CUSTOMER_INFO_PAGES',
+    modules: {
+      home: {
+        available: '$VITE_CUSTOMER_MODULES_HOME_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_HOME_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_HOME_REQUIRES_LOGIN',
+        widgets: '$VITE_CUSTOMER_MODULES_HOME_WIDGETS',
+        cosButtonActive: '$VITE_CUSTOMER_MODULES_HOME_COS_BUTTON_ACTIVE',
+        icon: '$VITE_CUSTOMER_MODULES_HOME_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_HOME_ICON_ACTIVE',
+        isSearchEnabled: '$VITE_CUSTOMER_MODULES_HOME_IS_SEARCH_ENABLED',
+      },
+      dashboards: {
+        available: '$VITE_CUSTOMER_MODULES_DASHBOARDS_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_DASHBOARDS_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_DASHBOARDS_REQUIRES_LOGIN',
+        icon: '$VITE_CUSTOMER_MODULES_DASHBOARDS_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_DASHBOARDS_ICON_ACTIVE',
+        isFullScreenEnabled: '$VITE_CUSTOMER_MODULES_DASHBOARDS_IS_FULL_SCREEN_ENABLED',
+        isMobileFilterEnabled: '$VITE_CUSTOMER_MODULES_DASHBOARDS_IS_MOBILE_FILTER_ENABLED',
+      },
+      organisationSites: {
+        available: '$VITE_CUSTOMER_MODULES_ORGANISATION_SITES_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_ORGANISATION_SITES_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_ORGANISATION_SITES_REQUIRES_LOGIN',
+        icon: '$VITE_CUSTOMER_MODULES_ORGANISATION_SITES_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_ORGANISATION_SITES_ICON_ACTIVE',
+        showPublisherList: '$VITE_CUSTOMER_MODULES_ORGANISATION_SITES_SHOW_PUBLISHER_LIST',
+      },
+      dataCatalog: {
+        available: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_REQUIRES_LOGIN',
+        datasetsPerPage: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_DATASETS_PER_PAGE',
+        metadataQualityMaxScore: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_METADATA_QUALITY_MAX_SCORE',
+        icon: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_ICON_ACTIVE',
+        isDatasetPreviewEnabled: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_IS_DATASET_PREVIEW_ENABLED',
+        previewBehaviorMode: '$VITE_CUSTOMER_MODULES_DATA_CATALOG_PREVIEW_BEHAVIOR_MODE',
+      },
+      digitalTwin: {
+        available: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_REQUIRES_LOGIN',
+        icon: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_ICON_ACTIVE',
+        showFullscreenButton: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_SHOW_FULLSCREEN_BUTTON',
+        maximize: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_MAXIMIZE',
+        isPluginEnabled: '$VITE_CUSTOMER_MODULES_DIGITAL_TWIN_IS_PLUGIN_ENABLED',
+      },
+      dksrApps: {
+        available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_DKSR_APPS_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_REQUIRES_LOGIN',
+        icon: '$VITE_CUSTOMER_MODULES_DKSR_APPS_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_DKSR_APPS_ICON_ACTIVE',
+        apps: {
+          bikePlanner: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_BIKE_PLANNER_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_BIKE_PLANNER_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_BIKE_PLANNER_URL',
+          },
+          heatwaves: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_WAVES_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_WAVES_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_WAVES_URL',
+          },
+          heatRisk: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_URL',
+          },
+          heatActions: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_ACTIONS_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_ACTIONS_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_ACTIONS_URL',
+          },
+          heatRiskWeighted: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_WEIGHTED_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_WEIGHTED_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_WEIGHTED_URL',
+          },
+          solarTool: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SOLAR_TOOL_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SOLAR_TOOL_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SOLAR_TOOL_URL',
+          },
+          heatRiskAnalysis: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_ANALYSIS_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_ANALYSIS_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_HEAT_RISK_ANALYSIS_URL',
+          },
+          digitalEnergyAdvisor: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_DIGITAL_ENERGY_ADVISOR_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_DIGITAL_ENERGY_ADVISOR_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_DIGITAL_ENERGY_ADVISOR_URL'
+          },
+          smartWinterService: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SMART_WINTER_SERVICE_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SMART_WINTER_SERVICE_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SMART_WINTER_SERVICE_URL'
+          },
+          schoolDistrictPlanning: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SCHOOL_DISTRICT_PLANNING_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SCHOOL_DISTRICT_PLANNING_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SCHOOL_DISTRICT_PLANNING_URL'
+          },
+          economyMonitoring: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_ECONOMY_MONITORING_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_ECONOMY_MONITORING_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_ECONOMY_MONITORING_URL'
+          },
+          socialMonitoring: {
+            available: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SOCIAL_MONITORING_AVAILABLE',
+            requiresLogin: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SOCIAL_MONITORING_REQUIRES_LOGIN',
+            url: '$VITE_CUSTOMER_MODULES_DKSR_APPS_SOCIAL_MONITORING_URL'
+          }
+        }
+      },
+      analytics: {
+        available: '$VITE_CUSTOMER_MODULES_ANALYTICS_AVAILABLE',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_ANALYTICS_REQUIRES_LOGIN',
+        order: '$VITE_CUSTOMER_MODULES_ANALYTICS_ORDER',
+        icon: '$VITE_CUSTOMER_MODULES_ANALYTICS_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_ANALYTICS_ICON_ACTIVE',
+      },
+      customIframeModule: {
+        available: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_REQUIRES_LOGIN',
+        name: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_NAME',
+        icon: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_ICON_ACTIVE',
+        route: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_ROUTE',
+        title: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_TITLE',
+        iframeTitle: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_IFRAME_TITLE',
+        url: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_URL',
+        authenticatedUrl: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_AUTHENTICATED_URL',
+        maximize: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_MAXIMIZE',
+        isPluginEnabled: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_IS_PLUGIN_ENABLED',
+        showFullscreenButton: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_SHOW_FULLSCREEN_BUTTON',
+      },
+      customIframeModule2: {
+        available: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_REQUIRES_LOGIN',
+        name: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_NAME',
+        icon: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_ICON_ACTIVE',
+        route: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_ROUTE',
+        title: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_TITLE',
+        iframeTitle: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_IFRAME_TITLE',
+        url: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_URL',
+        authenticatedUrl: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_AUTHENTICATED_URL',
+        maximize: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_MAXIMIZE',
+        isPluginEnabled: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_IS_PLUGIN_ENABLED',
+        showFullscreenButton: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_2_SHOW_FULLSCREEN_BUTTON',
+      },
+      customIframeModule3: {
+        available: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_AVAILABLE',
+        order: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_ORDER',
+        requiresLogin: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_REQUIRES_LOGIN',
+        name: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_NAME',
+        icon: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_ICON',
+        iconActive: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_ICON_ACTIVE',
+        route: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_ROUTE',
+        title: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_TITLE',
+        iframeTitle: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_IFRAME_TITLE',
+        url: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_URL',
+        authenticatedUrl: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_AUTHENTICATED_URL',
+        maximize: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_MAXIMIZE',
+        isPluginEnabled: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_IS_PLUGIN_ENABLED',
+        showFullscreenButton: '$VITE_CUSTOMER_MODULES_CUSTOM_IFRAME_MODULE_3_SHOW_FULLSCREEN_BUTTON',
+      },
+      adminCockpit: {
+        available: '$VITE_CUSTOMER_MODULES_ADMIN_COCKPIT_AVAILABLE',
+      },
+    },
+  },
+  appHeader: {
+    logoFileName: '$VITE_APP_HEADER_LOGO_FILE_NAME',
+    headerTitle: '$VITE_APP_HEADER_HEADER_TITLE',
+    hideTitle: '$VITE_APP_HEADER_HIDE_TITLE',
+    headerLinks: {
+      first: {
+        translationKey: '$VITE_APP_HEADER_LINKS_FIRST_TRANSLATION_KEY',
+        icon: '$VITE_APP_HEADER_LINKS_FIRST_ICON',
+        urlTarget: '$VITE_APP_HEADER_LINKS_FIRST_URL_TARGET',
+      },
+      second: {
+        translationKey: '$VITE_APP_HEADER_LINKS_SECOND_TRANSLATION_KEY',
+        icon: '$VITE_APP_HEADER_LINKS_SECOND_ICON',
+        urlTarget: '$VITE_APP_HEADER_LINKS_SECOND_URL_TARGET',
+      },
+      third: {
+        translationKey: '$VITE_APP_HEADER_LINKS_THIRD_TRANSLATION_KEY',
+        icon: '$VITE_APP_HEADER_LINKS_THIRD_ICON',
+        urlTarget: '$VITE_APP_HEADER_LINKS_THIRD_URL_TARGET',
+      },
+    },
+    userMenu: {
+      first: {
+        translationKey: '$VITE_APP_HEADER_USER_MENU_FIRST_TRANSLATION_KEY',
+        urlTarget: '$VITE_APP_HEADER_USER_MENU_FIRST_URL_TARGET',
+        requiresRole: '$VITE_APP_HEADER_USER_MENU_FIRST_REQUIRES_ROLE',
+      },
+      second: {
+        translationKey: '$VITE_APP_HEADER_USER_MENU_SECOND_TRANSLATION_KEY',
+        urlTarget: '$VITE_APP_HEADER_USER_MENU_SECOND_URL_TARGET',
+        requiresRole: '$VITE_APP_HEADER_USER_MENU_SECOND_REQUIRES_ROLE',
+      },
+      third: {
+        translationKey: '$VITE_APP_HEADER_USER_MENU_THIRD_TRANSLATION_KEY',
+        urlTarget: '$VITE_APP_HEADER_USER_MENU_THIRD_URL_TARGET',
+        requiresRole: '$VITE_APP_HEADER_USER_MENU_THIRD_REQUIRES_ROLE',
+      },
+      fourth: {
+        translationKey: '$VITE_APP_HEADER_USER_MENU_FOURTH_TRANSLATION_KEY',
+        urlTarget: '$VITE_APP_HEADER_USER_MENU_FOURTH_URL_TARGET',
+        requiresRole: '$VITE_APP_HEADER_USER_MENU_FOURTH_REQUIRES_ROLE',
+      },
+      fifth: {
+        translationKey: '$VITE_APP_HEADER_USER_MENU_FIFTH_TRANSLATION_KEY',
+        urlTarget: '$VITE_APP_HEADER_USER_MENU_FIFTH_URL_TARGET',
+        requiresRole: '$VITE_APP_HEADER_USER_MENU_FIFTH_REQUIRES_ROLE',
+      },
+      sixth: {
+        translationKey: '$VITE_APP_HEADER_USER_MENU_SIXTH_TRANSLATION_KEY',
+        urlTarget: '$VITE_APP_HEADER_USER_MENU_SIXTH_URL_TARGET',
+        requiresRole: '$VITE_APP_HEADER_USER_MENU_SIXTH_REQUIRES_ROLE',
+      },
+    },
+  },
+  components: {
+    headerImageFileName: '$VITE_COMPONENTS_HEADER_IMAGE_FILE_NAME',
+  },
+  oup: {
+    url: '$VITE_OUP_URL',
+    username: '$VITE_OUP_USERNAME',
+    password: '$VITE_OUP_PASSWORD',
+  },
+  homeQuickLinks: {
+    first: {
+      title: '$VITE_HOME_QUICK_LINKS_FIRST_TITLE',
+      subtitle: '$VITE_HOME_QUICK_LINKS_FIRST_SUBTITLE',
+      icon: '$VITE_HOME_QUICK_LINKS_FIRST_ICON',
+      target: '$VITE_HOME_QUICK_LINKS_FIRST_TARGET',
+      route: '$VITE_HOME_QUICK_LINKS_FIRST_ROUTE',
+      available: '$VITE_HOME_QUICK_LINKS_FIRST_AVAILABLE',
+    },
+    second: {
+      title: '$VITE_HOME_QUICK_LINKS_SECOND_TITLE',
+      subtitle: '$VITE_HOME_QUICK_LINKS_SECOND_SUBTITLE',
+      icon: '$VITE_HOME_QUICK_LINKS_SECOND_ICON',
+      target: '$VITE_HOME_QUICK_LINKS_SECOND_TARGET',
+      route: '$VITE_HOME_QUICK_LINKS_SECOND_ROUTE',
+      available: '$VITE_HOME_QUICK_LINKS_SECOND_AVAILABLE',
+    },
+    third: {
+      title: '$VITE_HOME_QUICK_LINKS_THIRD_TITLE',
+      subtitle: '$VITE_HOME_QUICK_LINKS_THIRD_SUBTITLE',
+      icon: '$VITE_HOME_QUICK_LINKS_THIRD_ICON',
+      route: '$VITE_HOME_QUICK_LINKS_THIRD_ROUTE',
+      target: '$VITE_HOME_QUICK_LINKS_THIRD_TARGET',
+      available: '$VITE_HOME_QUICK_LINKS_THIRD_AVAILABLE',
+    },
+  },
+  languages: {
+    displayOptions: '$VITE_LANGUAGE_DISPLAY_OPTIONS',
+    fallbackLanguage: '$VITE_LANGUAGE_FALLBACK',
+  },
+}

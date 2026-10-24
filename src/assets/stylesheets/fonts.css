@@ -1,0 +1,39 @@
+/*
+ * This file is part of Civora UI.
+ *
+ * Copyright (C) 2025 DKSR GmbH.
+ *
+ * Civora UI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
+@font-face {
+    font-family: 'Inter';
+    src: url('@/assets/fonts/Inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sofia Sans';
+    src: url('@/assets/fonts/SofiaSans/SofiaSans-VariableFont_wght.ttf')  format('truetype');
+    font-weight: 100 1000;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sofia Sans';
+    src: url('@/assets/fonts/SofiaSans/SofiaSans-Italic-VariableFont_wght.ttf')  format('truetype');
+    font-weight: 100 1000;
+    font-style: italic;
+}

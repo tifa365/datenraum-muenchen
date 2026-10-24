@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Piveau hub-search API as used by the Augsburg dashboard (open.bydata.de)
+  version: 2026-10-24
+  description: |
+    The public Augsburg dashboard counts and lists Augsburg's open-data datasets by calling the
+    Bavarian open-data portal (open.bydata.de), which runs a Piveau hub-search instance.
+    Only the `/search` endpoint and the parameters actually observed are documented here.
+
+    The same hub-search API (same response envelope `{ result: { index, count, results, facets } }`)
+    is what CIVORA UI itself talks to through `piveauHubSearchUrl` via `@piveau/sdk-core`
+    (`https://piveau-search.smartcity-udp.augsburg.de/search` in Augsburg's config). That host was
+    not probed; the statement is inferred from the CIVORA UI source, not verified live.
+
+    Three request variants are used by the dashboard:
+    1. count of all Augsburg datasets (`limit=1&aggregation=false`) -> `result.count` = 396
+    2. count of datasets modified in the last 30 days (`minDate=<ISO timestamp>`) -> 0 on 2026-10-24
+    3. the three most recently modified datasets, with a reduced field list (`includes=`) and all facets
+  license:
+    name: Documentation CC0-1.0; the API itself has no published licence
+    identifier: CC0-1.0
+security: []
+servers:
+  - url: https://open.bydata.de/api/hub/search
+paths:
+  /search:
+    get:
+      operationId: search
+      summary: Full-text and faceted search over the DCAT index
+      parameters:
+        - name: q
+          in: query
+          schema: { type: string, default: '' }
+          description: Full-text query. Empty string matches everything.
+        - name: filter
+          in: query
+          schema: { type: string, enum: [dataset, catalogue, vocabulary] }
+          description: "Index to search. The dashboard sends it as `filter` in the list call and as `filters` in the count calls; both work."
+        - name: filters
+          in: query
+          schema: { type: string }
+          description: Alias of `filter` as observed in the count calls.
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 0 }
+          description: Page size. `limit=1` is used for pure counting (with `aggregation=false`).
+        - name: page
+          in: query
+          schema: { type: integer, minimum: 0, default: 0 }
+        - name: sort
+          in: query
+          schema: { type: string }
+          description: "Comma-separated `field+direction` list, e.g. `modified+desc, relevance+desc, title.de+asc`."
+        - name: facets
+          in: query
+          schema: { type: string }
+          description: |
+            JSON object of facet id -> array of values, URL-encoded.
+            The dashboard restricts to Augsburg with `{"open_data_presence":["augsburg.bydata"]}`.
+          example: '{"open_data_presence":["augsburg.bydata"]}'
+        - name: facetOperator
+          in: query
+          schema: { type: string, enum: [AND, OR], default: AND }
+          description: Combination of values inside one facet.
+        - name: facetGroupOperator
+          in: query
+          schema: { type: string, enum: [AND, OR], default: AND }
+          description: Combination between facets.
+        - name: aggregation
+          in: query
+          schema: { type: boolean, default: true }
+          description: When false the response has an empty `facets` array (cheaper count query).
+        - name: minDate
+          in: query
+          schema: { type: string, format: date-time }
+          description: "Only datasets with `modified >= minDate`. The dashboard uses now minus 30 days."
+        - name: dataServices
+          in: query
+          schema: { type: boolean, default: false }
+          description: Include DCAT data services in results.
+        - name: includes
+          in: query
+          schema: { type: string }
+          description: "Comma-separated whitelist of result fields, e.g. `id,title.de,description.de,modified,issued,resource`. Nested keys are dotted."
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SearchResponse' }
+        '400':
+          description: Malformed query (e.g. invalid JSON in `facets`); not observed live, inferred from Piveau hub-search
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        text/html:
+          schema: { type: string }
+  schemas:
+    SearchResponse:
+      type: object
+      required: [result]
+      properties:
+        result:
+          type: object
+          required: [index, count, results, facets]
+          properties:
+            index: { type: string, example: dataset }
+            count: { type: integer, description: "Total hits, independent of limit", example: 396 }
+            sort:
+              type: array
+              description: Elasticsearch sort values of the last hit (present when a sort was requested)
+              items: {}
+            results:
+              type: array
+              items: { $ref: '#/components/schemas/DatasetHit' }
+            facets:
+              type: array
+              items: { $ref: '#/components/schemas/Facet' }
+    DatasetHit:
+      type: object
+      description: |
+        A DCAT-AP dataset document. With `includes=` only the listed keys are present. Without it the
+        document is the full hub-search dataset record (catalog, publisher, distributions, categories,
+        contact_point, temporal, quality_meas, is_hvd, open_data_presence, ...); see samples/bydata-count.json.
+      required: [id, index]
+      properties:
+        id: { type: string, example: weltkulturerbestaetten-in-augsburg }
+        index: { type: string, example: dataset }
+        resource: { type: string, format: uri, description: hub-repo URL of the dataset }
+        title: { $ref: '#/components/schemas/LangMap' }
+        description: { $ref: '#/components/schemas/LangMap' }
+        modified: { type: string, format: date }
+        issued: { type: string, format: date }
+        catalog:
+          type: object
+          properties:
+            id: { type: string, example: augsburg-subcatalog }
+            title: { $ref: '#/components/schemas/LangMap' }
+          additionalProperties: true
+        open_data_presence:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string, example: augsburg.bydata }
+              label: { type: string }
+      additionalProperties: true
+    LangMap:
+      type: object
+      description: Language-tagged string, keyed by BCP47 code
+      additionalProperties: { type: string }
+      example: { de: Weltkulturerbestätten in Augsburg }
+    Facet:
+      type: object
+      required: [id, title, items]
+      properties:
+        id:
+          type: string
+          description: "Observed ids: dataScope, is_hvd, hvd_category, periodicity, country, open_data_presence, catalog, superCatalog, categories, publisher, keywords, scoring, format, publication_status, access_level, license, subject, distributions_total"
+        title: { type: string }
+        items:
+          type: array
+          items:
+            type: object
+            required: [id, count]
+            properties:
+              id: { type: string }
+              title: {}
+              count: { type: integer }
+            additionalProperties: true

@@ -1,0 +1,414 @@
+openapi: 3.1.0
+info:
+  title: Munich public dashboard API
+  version: 0.1.0
+  summary: Munich replacement for the Civora Alerts "public" API that feeds the Smart City Dashboard.
+  description: |
+    Implemented by `tools/munich-public-api`. Shapes follow the Augsburg contract
+    (`../augsburg/alerts-public-api.openapi.yaml`) where a Munich source exists, with these extensions (full comparison in `differences-from-augsburg.md`):
+
+    - every response carries a `provenance` block (source, licence, attribution, retrievedAt,
+      observedAt, stale);
+    - counts are nullable: null means unknown, never zero;
+    - `/public/opendata` replaces the three direct hub-search calls (Munich CKAN instead of bydata);
+    - bike windows are anchored to `dataThrough`, the last complete published day.
+
+    `/public/person/sites` and `/public/person/traffic` are served from a frozen local
+    Passantendaten archive (data through 2026-10-23, `PERSON_DATA_DIR`).
+    Placeholder: `/public/transport/departures` (realtime source pending).
+  license:
+    name: AGPL-3.0-only
+    identifier: AGPL-3.0-only
+security: []
+servers:
+  - url: /
+    description: The munich-public-api server (default port 8080)
+paths:
+  /public/city-info:
+    get:
+      operationId: getCityInfo
+      summary: Population and area of Munich (Wikidata Q1726, cached daily)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CityInfo' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/opendata:
+    get:
+      operationId: getOpenDataStats
+      summary: Open-data catalogue statistics (Munich CKAN, cached hourly)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OpenData' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/machmit-projects:
+    get:
+      operationId: listParticipationProjects
+      summary: Participation projects on unser.muenchen.de with live proposal count (cached 10 min)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProjectsResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/parking:
+    get:
+      operationId: listParking
+      summary: Parking garages (opendata.muenchen.de via infranode.dev, with manual corrections)
+      description: |
+        72 facilities. Occupancy is only present when the server runs with
+        `PARKING_OCCUPANCY=parkraumwende` (dev only, rights unconfirmed); then `occupancyProvenance` is added.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ParkingResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/bike/sites:
+    get:
+      operationId: listBikeSites
+      summary: Bicycle counting stations (city WFS)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BikeSitesResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/bike/traffic:
+    get:
+      operationId: getBikeTraffic
+      summary: Aggregated bicycle counts, anchored to the last published day
+      parameters:
+        - name: period
+          in: query
+          description: "`7d` (hourly buckets) or `30d` (daily buckets); anything else falls back to `7d`."
+          schema: { type: string, enum: [7d, 30d], default: 7d }
+        - name: siteId
+          in: query
+          description: "`all` or a `siteId` from `/public/bike/sites` (case-insensitive)."
+          schema: { type: string, default: all }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrafficResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '503':
+          description: No bike data ingested yet (first start)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /public/person/sites:
+    get:
+      operationId: listPersonSites
+      summary: Pedestrian counting locations (local Passantendaten archive)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PersonSitesResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/person/traffic:
+    get:
+      operationId: getPersonTraffic
+      summary: Aggregated pedestrian counts, anchored to the archive's dataThrough
+      parameters:
+        - name: period
+          in: query
+          description: "`7d` (hourly buckets) or `30d` (daily buckets); anything else falls back to `7d`."
+          schema: { type: string, enum: [7d, 30d], default: 7d }
+        - name: siteName
+          in: query
+          description: "`all` or a `Location` from `/public/person/sites` (case-insensitive)."
+          schema: { type: string, default: all }
+        - name: siteId
+          in: query
+          description: Alternative to siteName.
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK (shape of TrafficResponse)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrafficResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /public/transport/stations:
+    get:
+      operationId: listTransportStations
+      summary: Static stop registry for the municipality (MVV, de:09162:*)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/StationsResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+components:
+  responses:
+    NotFound:
+      description: Express-style HTML page `Cannot GET /path`
+      content:
+        text/html:
+          schema: { type: string }
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+    Licence:
+      type: object
+      required: [id]
+      properties:
+        id: { type: string, examples: [DL-DE-BY-2.0, CC0-1.0, unknown] }
+        url: { type: [string, 'null'] }
+        note: { type: string }
+    Provenance:
+      type: object
+      required: [source, licence, attribution, retrievedAt, observedAt, stale]
+      properties:
+        source: { type: string, description: Upstream URL }
+        licence: { $ref: '#/components/schemas/Licence' }
+        attribution: { type: [string, 'null'] }
+        retrievedAt: { type: string, format: date-time, description: When this server fetched the data }
+        observedAt: { type: [string, 'null'], description: "When the source says the data was measured; null if it does not say" }
+        stale: { type: boolean, description: True when the last refresh failed and an older snapshot is served }
+        notes: { type: string }
+    CityInfo:
+      type: object
+      required: [city, population, populationDate, areaKm2, source, image, fetchedAt, provenance]
+      properties:
+        city: { type: [string, 'null'], examples: [München] }
+        population: { type: [integer, 'null'], examples: [1505036] }
+        populationDate: { type: [string, 'null'], examples: ['2025-12-31'] }
+        areaKm2: { type: [number, 'null'], examples: [310.71] }
+        source: { type: string, examples: [Wikidata Q1726] }
+        image: { $ref: '#/components/schemas/CityImage' }
+        fetchedAt: { type: string, format: date-time }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    CityImage:
+      type: object
+      description: Main/header image of the dashboard (CC0; credits in config/munich/assets/images/CREDITS.md)
+      required: [url, localPath, width, height, title, author, licence, sourcePage]
+      properties:
+        url: { type: string, format: uri, description: Wikimedia Commons 1280px rendition }
+        localPath: { type: string, description: Same file bundled with the CIVORA config, examples: [/config/munich/assets/images/muenchen-header-marienplatz.jpg] }
+        width: { type: integer, examples: [1280] }
+        height: { type: integer, examples: [853] }
+        title: { type: string }
+        author: { type: string }
+        licence: { $ref: '#/components/schemas/Licence' }
+        sourcePage: { type: string, format: uri }
+    TileImage:
+      type: object
+      description: Image for a dashboard tile, served from the CIVORA config assets (credits and licences in config/munich/assets/images/CREDITS.md)
+      required: [localPath, localPath2x, width, height, alt, title, author, licence, sourcePage, attributionRequired, attribution]
+      properties:
+        localPath: { type: string }
+        localPath2x: { type: string, description: Double-resolution variant for high-DPI screens }
+        width: { type: integer }
+        height: { type: integer }
+        alt: { type: string }
+        title: { type: string }
+        author: { type: string }
+        licence: { $ref: '#/components/schemas/Licence' }
+        sourcePage: { type: string, format: uri }
+        attributionRequired: { type: boolean, description: "If true (e.g. CC BY-SA), the client MUST render `attribution` visibly next to the image" }
+        attribution: { type: string, description: Ready-to-render credit line }
+    OpenData:
+      type: object
+      required: [count, modifiedInWindow, windowDays, latest, portalUrl, fetchedAt, provenance]
+      properties:
+        count: { type: integer, description: Total datasets, examples: [337] }
+        modifiedInWindow: { type: integer, description: Datasets whose metadata changed in the last windowDays, examples: [86] }
+        windowDays: { type: integer, examples: [30] }
+        latest:
+          type: array
+          items:
+            type: object
+            required: [id, name, title, modified, created, url, licence, publisher]
+            properties:
+              id: { type: string }
+              name: { type: string }
+              title: { type: string }
+              modified: { type: [string, 'null'], format: date-time }
+              created: { type: [string, 'null'], format: date-time }
+              url: { type: string, format: uri }
+              licence: { type: [string, 'null'] }
+              publisher: { type: [string, 'null'] }
+        portalUrl: { type: string, format: uri }
+        fetchedAt: { type: string, format: date-time }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    Project:
+      type: object
+      required: [id, title, subtitle, url, image, startDate, endDate, daysLeft, proposalsCount, status]
+      properties:
+        id: { type: integer, examples: [89] }
+        title: { type: string }
+        subtitle: { type: [string, 'null'] }
+        url: { type: string, format: uri }
+        image: { type: [string, 'null'], format: uri }
+        startDate: { type: [string, 'null'], format: date }
+        endDate: { type: [string, 'null'], format: date }
+        daysLeft: { type: [integer, 'null'] }
+        proposalsCount: { type: [integer, 'null'], description: "Live count from the 'Ideensammlung (N)' tab; null if it could not be read" }
+        status: { type: string, enum: [upcoming, running, ended, unknown] }
+    ProjectsResponse:
+      type: object
+      required: [title, source, count, totalRunningCount, projects, fetchedAt, cacheSeconds, provenance]
+      properties:
+        title: { type: string }
+        source: { type: string, examples: [unser.muenchen.de] }
+        count: { type: integer }
+        totalRunningCount: { type: integer }
+        projects:
+          type: array
+          items: { $ref: '#/components/schemas/Project' }
+        fetchedAt: { type: string, format: date-time }
+        cacheSeconds: { type: integer }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    ParkingFacility:
+      type: object
+      required: [id, name, address, type, lat, lon, state, total, occupied, free, timestamp]
+      properties:
+        id: { type: string, description: ASCII slug of the source name, examples: [parkgarage-am-salvatorplatz] }
+        name: { type: string }
+        address: { type: [string, 'null'] }
+        type: { type: string, enum: [parkingGarage, undergroundGarage] }
+        lat: { type: number }
+        lon: { type: number }
+        state:
+          type: string
+          enum: [unknown, ok, stale, inactive, invalid]
+          description: "unknown = no occupancy source; stale = occupancy older than 3 h; invalid = free > capacity or capacity 0"
+        total: { type: [integer, 'null'] }
+        occupied: { type: [integer, 'null'] }
+        free: { type: [integer, 'null'] }
+        timestamp: { type: [string, 'null'], format: date-time, description: Measurement time from the occupancy source }
+    ParkingResponse:
+      type: object
+      required: [image, updatedAt, count, withOccupancy, results, provenance]
+      properties:
+        updatedAt: { type: string, format: date-time }
+        count: { type: integer, examples: [72] }
+        withOccupancy: { type: integer }
+        image: { $ref: '#/components/schemas/TileImage' }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/ParkingFacility' }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+        occupancyProvenance: { $ref: '#/components/schemas/Provenance' }
+    BikeSite:
+      type: object
+      required: [siteId, name, description, lat, lon, directions, firstData, lastData, granularity, active]
+      properties:
+        siteId: { type: string, examples: [Arnulf] }
+        name: { type: string }
+        description: { type: string }
+        lat: { type: number }
+        lon: { type: number }
+        directions: { type: array, items: { type: string } }
+        firstData: { type: [string, 'null'], format: date-time, description: Earliest ingested observation }
+        lastData: { type: [string, 'null'], format: date-time }
+        granularity: { type: string, examples: [PT15M] }
+        active: { type: boolean, description: False when no counts were ingested for this site }
+    BikeSitesResponse:
+      type: object
+      required: [sites, provenance]
+      properties:
+        sites:
+          type: array
+          items: { $ref: '#/components/schemas/BikeSite' }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    PersonSitesResponse:
+      type: object
+      required: [sites, provenance]
+      properties:
+        sites:
+          type: array
+          items:
+            type: object
+            required: [Location, siteId, name]
+            properties:
+              Location: { type: string, description: Field the dashboard reads (Augsburg contract) }
+              siteId: { type: string }
+              name: { type: string }
+              directions: { type: array, items: { type: string } }
+              firstData: { type: [string, 'null'], format: date }
+              lastData: { type: [string, 'null'], format: date }
+              granularity: { type: string, examples: [PT1H] }
+              active: { type: boolean }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    PeriodWindow:
+      type: object
+      required: [from, to, count]
+      properties:
+        from: { type: string, format: date }
+        to: { type: string, format: date }
+        count: { type: integer }
+    TrafficResponse:
+      type: object
+      required: [period, bucket, updatedUntil, dataThrough, lastTimestamp, current, previous, changePercent, completeness, chart, sites, provenance]
+      properties:
+        period: { type: string, enum: [7d, 30d] }
+        bucket: { type: string, enum: [hour, day] }
+        updatedUntil: { type: string, format: date, description: Same as dataThrough (Augsburg field name) }
+        dataThrough: { type: string, format: date, description: Last complete published day; windows end here }
+        lastTimestamp: { type: [string, 'null'], format: date-time }
+        current: { $ref: '#/components/schemas/PeriodWindow' }
+        previous: { $ref: '#/components/schemas/PeriodWindow' }
+        changePercent: { type: [number, 'null'], description: Null unless both windows are more than 95 percent complete }
+        completeness: { type: number, description: Share of expected 15-minute slots present in the current window }
+        chart:
+          type: array
+          items:
+            type: object
+            required: [bucket, count]
+            properties:
+              bucket: { type: string, description: "UTC hour start (bucket=hour) or Berlin date (bucket=day)" }
+              count: { type: integer }
+        sites:
+          type: array
+          items:
+            type: object
+            required: [siteId, name, count]
+            properties:
+              siteId: { type: string }
+              name: { type: string }
+              count: { type: integer }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+    Station:
+      type: object
+      required: [id, stationRef, name, lat, lon, status, maxDelay, types, updatedAt]
+      properties:
+        id: { type: string, examples: ['de:09162:2'] }
+        stationRef: { type: string }
+        name: { type: string }
+        lat: { type: number }
+        lon: { type: number }
+        status: { type: string, enum: [ok, minor, critical, no-data], description: Always no-data until a realtime source exists }
+        maxDelay: { type: [integer, 'null'] }
+        types: { type: [array, 'null'], items: { type: string, enum: [bus, tram, train, ubahn, sbahn] } }
+        updatedAt: { type: string, format: date-time }
+    StationsResponse:
+      type: object
+      required: [image, updatedAt, count, results, skipped, provenance]
+      properties:
+        updatedAt: { type: string, format: date-time }
+        count: { type: integer, examples: [1196] }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/Station' }
+        skipped: { type: array, items: { type: string }, description: Stops without usable coordinates }
+        image: { $ref: '#/components/schemas/TileImage' }
+        provenance: { $ref: '#/components/schemas/Provenance' }

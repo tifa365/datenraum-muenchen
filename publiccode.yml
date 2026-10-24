@@ -1,0 +1,111 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: CIVORA UI
+applicationSuite: CIVORA – Smart City Data Hub
+url: 'https://gitlab.opencode.de/civora/civora-ui.git'
+releaseDate: '2025-07-04'
+softwareVersion: '1.30.0'
+softwareType: standalone/web
+landingURL: 'https://demo.civora.org'
+developmentStatus: stable
+platforms:
+  - web
+inputTypes:
+  - application/x.empty
+outputTypes:
+  - application/x.empty
+usedBy:
+  - Stadt Troisdorf - https://smartes.troisdorf.de/
+  - Bertelsmann Stiftung - https://datenkatalog.datenatlas-zivilgesellschaft.de/
+  - Landkreis Hof
+  - Landkreis Darmstadt Dieburg
+  - Wetteraukreis
+  - SmartRegion AUF (Apfeldorf, Unterdießen, Fuchstal)
+  - Kreis Bergstraße
+  - Gelsenkirchen
+  - Augsburg
+  - Siegburg
+  - Wiesbaden
+  - Stadtwerke Mainz
+  - Metrocog (USA)
+  - Norwalk (USA)
+  - Ascend (EU)
+  - BIPED (EU)
+monochromeLogo: civora-logo-monochrome.svg
+logo: civora-logo.svg
+roadmap: 'https://www.dksr.city/'
+maintenance:
+  type: internal
+  contacts:
+    - name: Jonathan Krefting
+      email: civora@dksr.city
+      affiliation: DKSR GmbH
+legal:
+  license: AGPL-3.0-only
+  mainCopyrightOwner: DKSR GmbH
+  repoOwner: DKSR GmbH
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - de
+    - en
+    - cz
+description:
+  de:
+    genericName: Civora UI
+    shortDescription: >-
+      Der CIVORA Data Hub ist eine Steuerzentrale für modulare urbane Datenlösungen.
+    longDescription: >
+      Der CIVORA Data Hub ist eine Steuerzentrale für modulare urbane  Datenlösungen. Er umfasst einen Datenkatalog auf piveau Basis,  Dashboards, Analyse Tools sowie die Möglichkeit, über die Integration  von GIS-Systemen und 3D-Modellen Digitale Zwillinge umzusetzen. Mit  diesen Modulen können Sie Ihren Hub individuell ausstatten und zudem  Daten aus unterschiedlichen Quellen anbinden. Der Hub ist mit einem  systematischen Rollen- und Rechtesystem ausgestattet, das formelle  Arbeitsweisen in Stadtverwaltungen abbildet. Er ermöglicht eine  effiziente digitale Stadtverwaltung und eine Vielzahl an Smart City  Anwendungen, wie Verkehrssteuerung oder Energiedaten-Management.
+
+    features:
+      - Dashboards
+      - Datenkatalog
+      - Analysen
+      - Digitaler Zwilling
+    screenshots:
+      - docs/images/civora-ui-de.png
+      - docs/images/civora-modules-de.png
+  en:
+    genericName: Civora UI
+    shortDescription: The CIVORA Data Hub is a control centre for working with urban data.
+    longDescription: >
+      The CIVORA Data Hub is a control centre for working with urban data. It  includes an urban data catalogue, dashboards and analysis tools,  including the potential to create and operate digital city twins. These  modules allow you to customize your hub and also connect data from  different sources. The hub is equipped with a systematic role-based  access control system that reflects the formal working methods of  municipal authorities. It enables efficient data management and a wide  range of smart city applications, from traffic control to energy data  management.  CIVORA is a registered trademark of DKSR GmbH. The CIVORA codebase is published under the terms of the AGPL v3.0, but this license does not grant any rights to use the CIVORA name or logo. Any public use of the name or branding in derivative works or services requires prior written permission from DKSR GmbH.
+
+categories:
+  - application-development
+  - business-intelligence
+  - collaboration
+  - data-analytics
+  - data-collection
+  - data-visualization
+  - it-development
+  - knowledge-management
+  - online-community
+  - workflow-management
+  - web-collaboration
+intendedAudience:
+  scope:
+    - agriculture
+    - culture
+    - education
+    - energy
+    - environment
+    - finance-and-economic-development
+    - government
+    - infrastructures
+    - local-authorities
+    - science-and-technology
+    - society
+    - tourism
+    - transportation
+    - research
+    - welfare
+  countries:
+    - de
+    - us
+    - cz
+    - gb

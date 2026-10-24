@@ -1,0 +1,47 @@
+{
+ "success": true,
+ "result": {
+  "count": 337,
+  "results": [
+   {
+    "id": "f4d6be9a-5cbb-4a8b-a75e-49157948277d",
+    "name": "enp_baublock_grundwasserpotential_einteilig_25832",
+    "title": "Grundwasserpotential",
+    "notes": "Das Grundwasser kann zur Beheizung und Kühlung von Gebäuden genutzt werden. Die Karte stellt auf Blockebene die potenzielle Menge an Energie (in Watt) dar, die dem Grundwasser pro Quadratmeter entzoge",
+    "metadata_modified": "2026-10-24T05:45:14.978651",
+    "metadata_created": "2023-08-02T13:24:58.987620",
+    "license_id": "dl-by-de/2.0",
+    "license_title": "Datenlizenz Deutschland Namensnennung 2.0 (dl-by-de)",
+    "organization": {
+     "title": "Referat für Stadtplanung und Bauordnung der Landeshauptstadt München"
+    }
+   },
+   {
+    "id": "1ae5ba90-a8a3-4c95-a310-83e9e077919f",
+    "name": "solarpotenzial_globalstrahlung_p_02",
+    "title": "Solarpotenzialanalyse 2018 der Landeshauptstadt München",
+    "notes": "Basierend auf einem 3D-Modell, stellt die Solarpotenzialanalyse auf Grundlage von Ausrichtung, Neigung und Verschattung die einfallende Globalstrahlung in kWh/m2a auf alle Dachflächen dar. Die Analyse",
+    "metadata_modified": "2026-10-24T05:45:14.935684",
+    "metadata_created": "2023-08-04T06:38:02.712825",
+    "license_id": "dl-by-de/2.0",
+    "license_title": "Datenlizenz Deutschland Namensnennung 2.0 (dl-by-de)",
+    "organization": {
+     "title": "Referat für Stadtplanung und Bauordnung der Landeshauptstadt München"
+    }
+   },
+   {
+    "id": "ca0903f9-e42f-4e0a-914c-3b705dff5bd5",
+    "name": "gebaeude_waermedichte_o_geb_03",
+    "title": "Wärmedichte",
+    "notes": "Die Wärmedichte ist ein Indikator für die Realisierbarkeit von netzgebundener Wärmeversorgung. Gebiete mit hohen Wärmedichten können sich gut für Fernwärmenetze eignen. Niedrige Wärmedichten eigenen s",
+    "metadata_modified": "2026-10-24T05:45:14.811657",
+    "metadata_created": "2023-08-02T13:24:59.025002",
+    "license_id": "dl-by-de/2.0",
+    "license_title": "Datenlizenz Deutschland Namensnennung 2.0 (dl-by-de)",
+    "organization": {
+     "title": "Referat für Stadtplanung und Bauordnung der Landeshauptstadt München"
+    }
+   }
+  ]
+ }
+}

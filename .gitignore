@@ -1,0 +1,20 @@
+# dependencies and build output
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+
+# local config / secrets
+.env
+.env.*
+config/config.dev.js
+
+# munich-public-api runtime state (sqlite snapshots, downloaded raw files)
+tools/munich-public-api/data/
+
+# editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.log

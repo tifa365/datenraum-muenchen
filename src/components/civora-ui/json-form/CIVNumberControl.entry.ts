@@ -1,0 +1,33 @@
+/*
+ * This file is part of Civora UI.
+ *
+ * Copyright (C) 2025 DKSR GmbH.
+ *
+ * Civora UI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import {
+  and, isEnumControl, isIntegerControl, isNumberControl, isOneOfEnumControl, not, or, rankWith,
+  type JsonFormsRendererRegistryEntry,
+} from '@jsonforms/core'
+// @ts-expect-error Vue SFC types are not resolved here.
+import CIVNumberControlRenderer from './CIVNumberControlRenderer.vue'
+
+// Rank 2 > vanilla number/integer (1); enum (vanilla 2) and oneOf-enum (5) are excluded explicitly.
+export const civNumberControlEntry: JsonFormsRendererRegistryEntry = {
+  renderer: CIVNumberControlRenderer,
+  tester: rankWith(
+    2,
+    and(or(isNumberControl, isIntegerControl), not(isEnumControl), not(isOneOfEnumControl)),
+  ),
+}

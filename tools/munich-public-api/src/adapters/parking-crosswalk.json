@@ -1,0 +1,113 @@
+{
+  "_comment": "PLS garage (sn/ph from parkraumwende latest.json / pls-muc-z.com) -> parking site id (slug of the infranode facility name). Only confident matches; unmapped garages are listed under _unmapped and are ignored by the occupancy adapter. Built 2026-10-24 by coordinate + name comparison.",
+  "106501/P19": {
+    "id": "parkhaus-am-stachus",
+    "name": "Parkhaus am Stachus",
+    "evidence": "same coordinates, same name"
+  },
+  "106504/P18": {
+    "id": "city-parkhaus-faerbergraben",
+    "name": "City-Parkhaus Färbergraben",
+    "evidence": "same coordinates, same name"
+  },
+  "106505/P5": {
+    "id": "parkgarage-rieger-city",
+    "name": "Parkgarage Rieger City",
+    "evidence": "same coordinates, same name"
+  },
+  "106506/P7": {
+    "id": "sonnenhof-garage",
+    "name": "Sonnenhof-Garage",
+    "evidence": "same coordinates, same name"
+  },
+  "106507/P17": {
+    "id": "tiefgarage-vor-der-oper",
+    "name": "Tiefgarage vor der Oper",
+    "evidence": "same coordinates, same name"
+  },
+  "106509/P22": {
+    "id": "parkgarage-boehringer",
+    "name": "Parkgarage Böhringer",
+    "evidence": "same coordinates, same name"
+  },
+  "106513/P20": {
+    "id": "tiefgarage-hotel-ibis-city",
+    "name": "Tiefgarage Hotel ibis City",
+    "evidence": "same coordinates, same name"
+  },
+  "106521/P23": {
+    "id": "carpark-cristal",
+    "name": "CarPark Cristal",
+    "evidence": "same coordinates, same name"
+  },
+  "106524/P14": {
+    "id": "parkhaus-oberanger",
+    "name": "Parkhaus Oberanger",
+    "evidence": "same coordinates, same name"
+  },
+  "301220/P9": {
+    "id": "tiefgarage-oberpollinger",
+    "name": "Tiefgarage Oberpollinger",
+    "evidence": "same coordinates, same name"
+  },
+  "301234/P8": {
+    "id": "pschorr-garage",
+    "name": "Pschorr Garage",
+    "evidence": "same coordinates, same name"
+  },
+  "301236/P4": {
+    "id": "marienplatz-grossgarage",
+    "name": "Marienplatz Großgarage",
+    "evidence": "same coordinates, same name"
+  },
+  "301264/P10": {
+    "id": "hopfenpost-parkhaus",
+    "name": "Hopfenpost Parkhaus",
+    "evidence": "same coordinates, same name"
+  },
+  "301270/P1": {
+    "id": "parkhaus-an-der-marsstrasse",
+    "name": "Parkhaus an der Marsstraße",
+    "evidence": "same coordinates, Marsstr. 11"
+  },
+  "301271/P12": {
+    "id": "tiefgarage-am-hauptbahnhof",
+    "name": "Tiefgarage am Hauptbahnhof",
+    "evidence": "same coordinates, same name"
+  },
+  "301272/P13": {
+    "id": "tiefgarage-stachus",
+    "name": "Tiefgarage Stachus",
+    "evidence": "same coordinates, same name"
+  },
+  "301277/P2": {
+    "id": "parkhaus-elisenhof",
+    "name": "Parkhaus Elisenhof",
+    "evidence": "same coordinates, same name"
+  },
+  "401010/P15": {
+    "id": "parkhaus-am-hofbraeuhaus",
+    "name": "Parkhaus am Hofbräuhaus",
+    "evidence": "same name, 199 m apart"
+  },
+  "401055/P6": {
+    "id": "parkgarage-schranne-muenchen",
+    "name": "Parkgarage Schranne München",
+    "evidence": "same name stem, 51 m apart"
+  },
+  "401062/P3": {
+    "id": "parkgarage-am-salvatorplatz",
+    "name": "Parkgarage am Salvatorplatz",
+    "evidence": "same coordinates (pre-correction), same name"
+  },
+  "106525/P11/P25": {
+    "id": "parkhaus-am-hauptbahnhof",
+    "name": "Parkhaus am Hauptbahnhof",
+    "evidence": "same coordinates, same name"
+  },
+  "_unmapped": {
+    "106508/P21": "Hertie-Parkhaus: probably \"Karstadt München Bahnhofplatz\" (102 m), not confirmed",
+    "401004/P24": "PH Hauptbahnhof Süd: candidates Parkgarage am Goethe Center (15 m) and Parkgarage Senefelderstraße (31 m)",
+    "401060/P16": "Königshof-Parking: no facility with matching name nearby (nearest 126 m)"
+  }
+}
